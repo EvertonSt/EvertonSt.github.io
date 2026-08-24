@@ -32,7 +32,7 @@ export const flagshipProjects: Project[] = [
     tags: ['TypeScript', 'Playwright', 'AI-Assisted Test Planning', 'Deterministic Test Generation', 'Failure Triage', 'Duplicate-Bug Detection', 'GitHub Issue Creation', 'Severity-Based CI Gates', '313 Tests'],
     links: [{ label: 'GitHub', url: links.argus, icon: 'github' }, { label: 'Live Dashboard', url: links.argusDashboard, icon: 'live' }],
     metrics: [{ value: '313', label: 'Tests passing' }, { value: '4/4', label: 'Features covered' }, { value: '2 + N', label: 'AI calls per run' }],
-    status: 'live', statusLabel: 'Sample evaluation run — demonstrates detecting and classifying issues', featured: true,
+    status: 'live', statusLabel: 'Demonstration run — synthetic test data showing bug detection and triage', featured: true,
     caseStudy: [
       { title: 'Problem', content: 'Most QA systems rely entirely on AI (unreliable) or require manual tests (slow). Teams need autonomous discovery, reliable tests, and triage without blocking on flaky noise.' },
       { title: 'Architecture', content: 'Seven-stage pipeline: Ingest → Plan (Claude) → Codegen (templates-first) → Execute (Playwright) → Triage (AI) → File Bugs (GitHub Issues) → Report (CI gate + dashboard). 2 AI stages, rest deterministic.' },
