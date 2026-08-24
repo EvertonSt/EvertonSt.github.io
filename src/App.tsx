@@ -11,8 +11,10 @@ import { About } from './components/sections/About';
 import { Contact } from './components/sections/Contact';
 import { SectionHeading } from './components/ui/SectionHeading';
 import { flagshipProjects } from './data/projects';
+import { useLanguage } from './i18n';
 
 export default function App() {
+  const { t } = useLanguage();
   return (
     <>
       <Navbar />
@@ -21,7 +23,7 @@ export default function App() {
         <ProofStrip />
         <section className="section" id="work">
           <div className="section-inner">
-            <SectionHeading title="Work" subtitle="Flagship projects demonstrating AI-powered QA systems, CI quality gates, and full-stack engineering." />
+            <SectionHeading title={t('work.title')} subtitle={t('work.subtitle')} />
             {flagshipProjects.map((p, i) => (
               <FlagshipProject key={p.id} project={p} reverse={i % 2 === 1} />
             ))}

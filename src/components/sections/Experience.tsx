@@ -1,10 +1,12 @@
 import { Card } from '../ui/Card';
 import { SectionHeading } from '../ui/SectionHeading';
 import { experience } from '../../data/experience';
+import { useLanguage } from '../../i18n';
 import './Experience.css';
 export function Experience() {
+  const { t } = useLanguage();
   return (<section className="section" id="experience"><div className="section-inner">
-    <SectionHeading title="Experience" />
+    <SectionHeading title={t('exp.title')} />
     <div className="exp__list">{experience.map(e => (
       <Card key={e.id} className="exp__card">
         <div className="exp__header">
