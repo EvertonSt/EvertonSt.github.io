@@ -1,4 +1,4 @@
-# Everton S. Andrade — Portfolio
+# Everton S. Andrade ï¿½ Portfolio
 
 Premium, recruiter-focused portfolio built with React + TypeScript + Vite.
 
@@ -6,7 +6,7 @@ Premium, recruiter-focused portfolio built with React + TypeScript + Vite.
 
 - React 19 + TypeScript + Vite
 - CSS Custom Properties (no UI framework)
-- GitHub Pages deployment via `gh-pages`
+- GitHub Actions auto-deploy to GitHub Pages
 
 ## Development
 
@@ -25,34 +25,36 @@ npm run build
 
 Output: `dist/` directory.
 
-## Deploy to GitHub Pages
+## Deployment
 
-```bash
-npm run deploy
-```
-
-This builds the project and pushes the `dist/` contents to the `gh-pages` branch.
+Deployment is automatic via GitHub Actions. Every push to `main` triggers a build and deploy to GitHub Pages.
 
 The site is live at [https://evertonst.github.io/](https://evertonst.github.io/).
+
+### Regenerate OG image
+
+```bash
+npm run og:generate
+```
 
 ## Project Structure
 
 ```
 src/
   components/
-    layout/    — Navbar, Footer
-    sections/  — Hero, ProofStrip, FlagshipProject, EngineeringFocus, etc.
-    ui/        — Button, Card, Tag, Icon, StatusBadge, SectionHeading
-  data/        — projects, experience, skills, links (structured content)
-  hooks/       — useScrollSpy, useReducedMotion
-  styles/      — CSS variables, global styles
+    layout/    ï¿½ Navbar, Footer
+    sections/  ï¿½ Hero, ProofStrip, FlagshipProject, EngineeringFocus, etc.
+    ui/        ï¿½ Button, Card, Tag, Icon, StatusBadge, SectionHeading
+  data/        ï¿½ projects, experience, skills, links (structured content)
+  hooks/       ï¿½ useScrollSpy, useReducedMotion
+  styles/      ï¿½ CSS variables, global styles
 ```
 
 ## Content Updates
 
 All content is defined in `src/data/`. To update project descriptions, links, or metrics, edit the corresponding file:
 
-- `src/data/projects.ts` — Flagship and additional project data
-- `src/data/experience.ts` — Work experience entries
-- `src/data/skills.ts` — Technical stack categories
-- `src/data/links.ts` — External URLs
+- `src/data/projects.ts` ï¿½ Flagship and additional project data
+- `src/data/experience.ts` ï¿½ Work experience entries
+- `src/data/skills.ts` ï¿½ Technical stack categories
+- `src/data/links.ts` ï¿½ External URLs
