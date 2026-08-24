@@ -29,6 +29,9 @@ Output: `dist/` directory.
 
 Deployment is automatic via GitHub Actions. Every push to `main` triggers a build and deploy to GitHub Pages.
 
+**GitHub Pages source must be set to "GitHub Actions"** (not "Deploy from a branch"):
+GitHub repo → Settings → Pages → Build and deployment → Source → GitHub Actions.
+
 The site is live at [https://evertonst.github.io/](https://evertonst.github.io/).
 
 
