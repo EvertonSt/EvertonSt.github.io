@@ -1,2 +1,4 @@
-.card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); padding: var(--space-6); transition: all var(--transition-base); }
-.card--hover:hover { border-color: var(--border-hover); box-shadow: var(--shadow-glow); transform: translateY(-2px); }
+.card{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-xl);padding:var(--space-6);transition:all var(--transition-base)}
+.card--hover:hover{border-color:var(--border-hover);box-shadow:var(--shadow-glow);transform:translateY(-2px)}
+@media(max-width:768px){.card{padding:var(--space-4)}}
+@media(max-width:480px){.card{padding:var(--space-4) var(--space-3)}}

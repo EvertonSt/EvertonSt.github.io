@@ -4,5 +4,5 @@
 .ef__icon{font-size:2rem;display:block;margin-bottom:var(--space-3)}
 .ef__title{font-size:1rem;font-weight:600;color:var(--text-primary);margin-bottom:var(--space-2)}
 .ef__desc{font-size:.85rem;color:var(--text-secondary);line-height:1.6}
-@media(max-width:768px){.ef__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.ef__grid{grid-template-columns:repeat(2,1fr);gap:var(--space-4)}.ef__card{padding:var(--space-4)}}
 @media(max-width:480px){.ef__grid{grid-template-columns:1fr}}
