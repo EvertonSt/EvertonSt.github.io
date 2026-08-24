@@ -45,7 +45,7 @@ export default {
   'argus.title': 'Argus',
   'argus.subtitle': 'Autonomous AI QA Agent',
   'argus.description': 'An autonomous QA system that discovers application features, generates deterministic Playwright tests, triages failures, detects duplicate bugs, files GitHub issues, and enforces severity-based CI gates.',
-  'argus.statusLabel': 'Sample evaluation run — demonstrates detecting and classifying issues',
+  'argus.statusLabel': 'Demonstration run — synthetic test data showing bug detection and triage',
   'argus.cs.problem.title': 'Problem',
   'argus.cs.problem.content': 'Most QA systems rely entirely on AI (unreliable) or require manual tests (slow). Teams need autonomous discovery, reliable tests, and triage without blocking on flaky noise.',
   'argus.cs.architecture.title': 'Architecture',
