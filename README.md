@@ -31,13 +31,6 @@ Deployment is automatic via GitHub Actions. Every push to `main` triggers a buil
 
 The site is live at [https://evertonst.github.io/](https://evertonst.github.io/).
 
-### Regenerate OG image
-
-The PNG is committed to `public/og-image.png`. To regenerate from the SVG source:
-
-```bash
-npm run og:regenerate
-```
 
 ## Project Structure
 
