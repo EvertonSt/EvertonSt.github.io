@@ -18,4 +18,4 @@
 .navbar__mobile-link:hover,.navbar__mobile-link--active{color:var(--text-primary)}
 .navbar__mobile-social{display:flex;gap:var(--space-6);color:var(--text-secondary)}
 .navbar__mobile-cta{margin-top:var(--space-4)}
-@media(max-width:768px){.navbar__links,.navbar__actions{display:none}.navbar__hamburger{display:block}.navbar__mobile{display:block}}
+@media(max-width:768px){.navbar__links,.navbar__actions{display:none}.navbar__hamburger{display:block}.navbar__mobile{display:block}.navbar,.navbar--scrolled{padding:var(--space-3) var(--space-4)}.navbar--scrolled{padding:var(--space-2) var(--space-4)}}

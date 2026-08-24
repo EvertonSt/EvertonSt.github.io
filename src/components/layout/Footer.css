@@ -5,4 +5,4 @@
 .footer__links{display:flex;gap:var(--space-4);color:var(--text-secondary)}
 .footer__links a:hover{color:var(--text-primary)}
 .footer__copy{color:var(--text-muted);font-size:.8rem}
-@media(max-width:768px){.footer__inner{flex-direction:column;text-align:center}}
+@media(max-width:768px){.footer{padding:var(--space-6) var(--space-4);margin-top:var(--space-12)}.footer__inner{flex-direction:column;text-align:center}}

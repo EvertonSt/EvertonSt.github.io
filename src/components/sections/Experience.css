@@ -9,3 +9,4 @@
 .exp__links{margin-top:var(--space-4)}
 .exp__link{color:var(--accent-blue);font-size:.85rem;text-decoration:none}
 .exp__link:hover{color:var(--accent-violet)}
+@media(max-width:768px){.exp__header{flex-direction:column;gap:var(--space-1)}.exp__meta{text-align:left}.exp__list-items{font-size:.9rem;padding-left:var(--space-4)}}
