@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4f8fff"/>
+      <stop offset="100%" style="stop-color:#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:0.08"/>
+      <stop offset="100%" style="stop-color:#4f8fff;stop-opacity:0.03"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0a0a0f"/>
+  
+  <!-- Subtle gradient glow -->
+  <ellipse cx="300" cy="250" rx="400" ry="300" fill="url(#glow)"/>
+  
+  <!-- Top accent line -->
+  <rect x="80" y="80" width="60" height="3" rx="1.5" fill="url(#accent)"/>
+  
+  <!-- Name -->
+  <text x="80" y="140" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="700" fill="#f0f0f5">Everton S. Andrade</text>
+  
+  <!-- Title -->
+  <text x="80" y="190" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#8b5cf6">AI QA Engineer · SDET · Quality Engineering</text>
+  
+  <!-- Separator line -->
+  <rect x="80" y="220" width="1040" height="1" fill="#1e1e2a"/>
+  
+  <!-- Tagline -->
+  <text x="80" y="270" font-family="system-ui, -apple-system, sans-serif" font-size="20" fill="#a0a0b0">Building systems that make software quality</text>
+  <text x="80" y="300" font-family="system-ui, -apple-system, sans-serif" font-size="20" fill="#a0a0b0">observable, repeatable, and harder to ignore.</text>
+  
+  <!-- Tech tags -->
+  <g transform="translate(80, 340)">
+    <rect x="0" y="0" width="80" height="28" rx="14" fill="rgba(79,143,255,0.1)" stroke="rgba(79,143,255,0.2)" stroke-width="1"/>
+    <text x="40" y="18" font-family="monospace" font-size="11" fill="#4f8fff" text-anchor="middle">AI QA</text>
+    
+    <rect x="92" y="0" width="80" height="28" rx="14" fill="rgba(79,143,255,0.1)" stroke="rgba(79,143,255,0.2)" stroke-width="1"/>
+    <text x="132" y="18" font-family="monospace" font-size="11" fill="#4f8fff" text-anchor="middle">SDET</text>
+    
+    <rect x="184" y="0" width="130" height="28" rx="14" fill="rgba(79,143,255,0.1)" stroke="rgba(79,143,255,0.2)" stroke-width="1"/>
+    <text x="249" y="18" font-family="monospace" font-size="11" fill="#4f8fff" text-anchor="middle">Test Automation</text>
+    
+    <rect x="326" y="0" width="100" height="28" rx="14" fill="rgba(79,143,255,0.1)" stroke="rgba(79,143,255,0.2)" stroke-width="1"/>
+    <text x="376" y="18" font-family="monospace" font-size="11" fill="#4f8fff" text-anchor="middle">TypeScript</text>
+    
+    <rect x="438" y="0" width="100" height="28" rx="14" fill="rgba(79,143,255,0.1)" stroke="rgba(79,143,255,0.2)" stroke-width="1"/>
+    <text x="488" y="18" font-family="monospace" font-size="11" fill="#4f8fff" text-anchor="middle">Playwright</text>
+    
+    <rect x="550" y="0" width="110" height="28" rx="14" fill="rgba(79,143,255,0.1)" stroke="rgba(79,143,255,0.2)" stroke-width="1"/>
+    <text x="605" y="18" font-family="monospace" font-size="11" fill="#4f8fff" text-anchor="middle">LLM Evaluation</text>
+    
+    <rect x="672" y="0" width="70" height="28" rx="14" fill="rgba(79,143,255,0.1)" stroke="rgba(79,143,255,0.2)" stroke-width="1"/>
+    <text x="707" y="18" font-family="monospace" font-size="11" fill="#4f8fff" text-anchor="middle">CI/CD</text>
+  </g>
+  
+  <!-- Projects -->
+  <g transform="translate(80, 420)">
+    <rect x="0" y="0" width="320" height="70" rx="8" fill="#111118" stroke="#1e1e2a" stroke-width="1"/>
+    <text x="20" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="#f0f0f5">Argus</text>
+    <text x="20" y="48" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b5cf6">Autonomous AI QA Agent</text>
+    <text x="20" y="62" font-family="monospace" font-size="10" fill="#606070">313 tests · Playwright · TypeScript</text>
+    
+    <rect x="340" y="0" width="320" height="70" rx="8" fill="#111118" stroke="#1e1e2a" stroke-width="1"/>
+    <text x="360" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="#f0f0f5">Cerberus CI</text>
+    <text x="360" y="48" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b5cf6">AI-Powered CI Quality Gate</text>
+    <text x="360" y="62" font-family="monospace" font-size="10" fill="#606070">237 tests · npm · GitHub Action</text>
+    
+    <rect x="680" y="0" width="320" height="70" rx="8" fill="#111118" stroke="#1e1e2a" stroke-width="1"/>
+    <text x="700" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="#f0f0f5">Enlace</text>
+    <text x="700" y="48" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b5cf6">Full-Stack ISP Platform</text>
+    <text x="700" y="62" font-family="monospace" font-size="10" fill="#606070">Fastify · React · Tauri · Expo</text>
+  </g>
+  
+  <!-- Bottom bar -->
+  <rect x="0" y="620" width="1200" height="10" fill="url(#accent)" opacity="0.3"/>
+  
+  <!-- URL -->
+  <text x="1120" y="600" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#606070" text-anchor="end">evertonst.github.io</text>
+</svg>
