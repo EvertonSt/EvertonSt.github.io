@@ -8,9 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "og:generate": "node scripts/generate-og-image.mjs",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "og:generate": "node scripts/generate-og-image.mjs"
   },
   "dependencies": {
     "react": "^19.2.8",
@@ -22,7 +20,6 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "@vitejs/plugin-react": "^6.1.0",
-    "gh-pages": "^6.3.0",
     "oxlint": "^1.79.0",
     "sharp": "^0.35.3",
     "typescript": "~6.0.2",
