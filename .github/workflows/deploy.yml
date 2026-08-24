@@ -30,6 +30,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Generate OG image
+        run: npm run og:generate
+
       - name: Build
         run: npm run build
 
