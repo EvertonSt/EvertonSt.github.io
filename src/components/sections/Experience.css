@@ -1,0 +1,11 @@
+.exp__list{display:flex;flex-direction:column;gap:var(--space-6)}
+.exp__header{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--space-4);margin-bottom:var(--space-4);flex-wrap:wrap}
+.exp__title{font-size:1.15rem;font-weight:600;color:var(--text-primary);margin-bottom:var(--space-1)}
+.exp__company{color:var(--accent-violet);font-size:.9rem}
+.exp__meta{text-align:right;display:flex;flex-direction:column;gap:var(--space-1)}
+.exp__period{font-size:.85rem;color:var(--text-secondary);font-weight:500}
+.exp__location{font-size:.8rem;color:var(--text-muted)}
+.exp__list-items{list-style:disc;padding-left:var(--space-5);display:flex;flex-direction:column;gap:var(--space-2);color:var(--text-secondary);line-height:1.7;font-size:.95rem}
+.exp__links{margin-top:var(--space-4)}
+.exp__link{color:var(--accent-blue);font-size:.85rem;text-decoration:none}
+.exp__link:hover{color:var(--accent-violet)}

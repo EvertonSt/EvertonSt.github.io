@@ -1,0 +1,58 @@
+# Everton S. Andrade — Portfolio
+
+Premium, recruiter-focused portfolio built with React + TypeScript + Vite.
+
+## Tech Stack
+
+- React 19 + TypeScript + Vite
+- CSS Custom Properties (no UI framework)
+- GitHub Pages deployment via `gh-pages`
+
+## Development
+
+```bash
+npm install
+npm run dev
+```
+
+Open [http://localhost:5173](http://localhost:5173) to view in browser.
+
+## Build
+
+```bash
+npm run build
+```
+
+Output: `dist/` directory.
+
+## Deploy to GitHub Pages
+
+```bash
+npm run deploy
+```
+
+This builds the project and pushes the `dist/` contents to the `gh-pages` branch.
+
+The site is live at [https://evertonst.github.io/](https://evertonst.github.io/).
+
+## Project Structure
+
+```
+src/
+  components/
+    layout/    — Navbar, Footer
+    sections/  — Hero, ProofStrip, FlagshipProject, EngineeringFocus, etc.
+    ui/        — Button, Card, Tag, Icon, StatusBadge, SectionHeading
+  data/        — projects, experience, skills, links (structured content)
+  hooks/       — useScrollSpy, useReducedMotion
+  styles/      — CSS variables, global styles
+```
+
+## Content Updates
+
+All content is defined in `src/data/`. To update project descriptions, links, or metrics, edit the corresponding file:
+
+- `src/data/projects.ts` — Flagship and additional project data
+- `src/data/experience.ts` — Work experience entries
+- `src/data/skills.ts` — Technical stack categories
+- `src/data/links.ts` — External URLs

@@ -1,0 +1,8 @@
+.ap__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4)}
+.ap__card{display:flex;flex-direction:column;gap:var(--space-3)}
+.ap__card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-2)}
+.ap__title{font-size:1rem;font-weight:600;color:var(--text-primary)}
+.ap__desc{font-size:.85rem;color:var(--text-secondary);line-height:1.6;flex:1}
+.ap__tags{display:flex;flex-wrap:wrap;gap:var(--space-1)}
+@media(max-width:1024px){.ap__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.ap__grid{grid-template-columns:1fr}}
