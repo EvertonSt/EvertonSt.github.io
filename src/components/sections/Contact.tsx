@@ -1,13 +1,15 @@
 import { Button } from '../ui/Button';
 import { SectionHeading } from '../ui/SectionHeading';
 import { Icon } from '../ui/Icon';
+import { useLanguage } from '../../i18n';
 import { links } from '../../data/links';
 import './Contact.css';
 export function Contact() {
+  const { t } = useLanguage();
   return (<section className="section" id="contact"><div className="section-inner contact__inner">
-    <SectionHeading title="Contact" subtitle="Have a difficult quality problem, an AI product that needs evaluation, or a team that needs stronger automation?" centered />
+    <SectionHeading title={t('contact.title')} subtitle={t('contact.subtitle')} centered />
     <div className="contact__actions">
-      <Button variant="primary" size="lg" href="mailto:everton_st@outlook.com">Email <Icon name="email" size={16} /></Button>
+      <Button variant="primary" size="lg" href="mailto:everton_st@outlook.com">{t('contact.email')} <Icon name="email" size={16} /></Button>
       <Button variant="secondary" size="lg" href={links.linkedin} external>LinkedIn <Icon name="linkedin" size={16} /></Button>
       <Button variant="secondary" size="lg" href={links.github} external>GitHub <Icon name="github" size={16} /></Button>
     </div>
