@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "og:generate": "node scripts/generate-og-image.mjs"
+    "og:regenerate": "node scripts/generate-og-image.mjs"
   },
   "dependencies": {
     "react": "^19.2.8",
