@@ -18,4 +18,5 @@ export const links = {
   aiopedia: 'https://github.com/EvertonSt/aiopedia',
   localAiWebsite: 'https://github.com/EvertonSt/local-ai-website',
   projetoErp: 'https://github.com/EvertonSt/projeto-erp',
+  aitendimento: 'https://aitendimento.com.br',
 } as const;
