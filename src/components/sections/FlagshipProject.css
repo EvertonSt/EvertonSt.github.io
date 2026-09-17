@@ -16,3 +16,7 @@
 .fp__cs-title{font-size:1rem;font-weight:600;color:var(--text-primary);margin-bottom:var(--space-2)}
 .fp__cs-content{color:var(--text-secondary);line-height:1.7}
 @media(max-width:768px){.fp__title{font-size:1.4rem}.fp__header{flex-direction:column;gap:var(--space-2)}.fp__metrics{gap:var(--space-4)}.fp__metric-value{font-size:1.2rem}}
+
+.fp__media{margin:0 0 var(--space-6);display:flex;flex-direction:column;gap:var(--space-4)}
+.fp__screenshot{width:100%;border-radius:12px;border:1px solid var(--border-subtle);box-shadow:0 4px 16px rgba(0,0,0,.25)}
+.fp__video{width:100%;max-width:960px;border-radius:12px;border:1px solid var(--border-subtle);background:#000}

@@ -22,10 +22,51 @@ export interface Project {
   status?: 'live' | 'demo' | 'in-development' | 'reference';
   statusLabel?: string;
   caseStudy?: CaseStudySection[];
+  media?: { screenshot: string; screenshotAlt: string; video?: string };
   featured: boolean;
 }
 
 export const flagshipProjects: Project[] = [
+  {
+    id: 'sitecheckin', title: 'SiteCheckIn', subtitle: 'Website-Flow Monitoring with AI Incident Reports',
+    description: 'Self-hosted monitoring SaaS: describe website journeys (navigate, assert, click), schedule them, and get Playwright screenshot evidence, AI-written incident reports, and alerts. Its public status page proves the product by monitoring itself.',
+    tags: ['Next.js 16', 'TypeScript', 'Prisma', 'PostgreSQL', 'Redis', 'BullMQ', 'Playwright', 'k6', 'GitHub Actions', 'LGPD'],
+    links: [
+      { label: 'GitHub', url: 'https://github.com/EvertonSt/sitecheckin', icon: 'github' },
+      { label: 'Status page (live proof)', url: 'https://getsitecheckin.com/status', icon: 'live' },
+      { label: 'Demo video', url: '/showcase/sitecheckin/demo-incident-arc-sc.mp4', icon: 'external' },
+    ],
+    metrics: [{ value: '91+', label: 'Unit specs' }, { value: '12', label: 'E2E suites' }, { value: '4/4', label: 'CI workflows green' }],
+    status: 'live', statusLabel: 'Launching — getsitecheckin.com', featured: true,
+    media: { screenshot: '/showcase/sitecheckin/21-status-operational.png', screenshotAlt: 'SiteCheckIn public status page monitoring its own landing page', video: '/showcase/sitecheckin/demo-incident-arc-sc.mp4' },
+    caseStudy: [
+      { title: 'Problem', content: 'Small businesses find out a checkout or form broke from their customers. Existing SaaS monitors are closed-box and cannot assert business logic ("the hero promise is visible", "the form posts").' },
+      { title: 'Architecture', content: 'pnpm monorepo: Next.js 16 web app (auth, projects/flows/runs, plans, public status + SVG badge), Node worker executing Playwright journeys on BullMQ with screenshot evidence and AI reports, shared packages (core, database, ai, email, ui).' },
+      { title: 'Key Decisions', content: '1. The product monitors itself in production — public /status is the proof surface. 2. Evidence authorization is 404-not-403 (no existence leaks). 3. Rate limiting never fails open (Redis-backed). 4. Every deploy path is rehearsed in CI (fake-SSH stage-detection drill).' },
+      { title: 'Hardening', content: '12-phase program: per-IP + per-credential progressive throttles, webhook fuzz matrices, tenant-isolation test matrix, LGPD export/delete drills, k6 SLO gates (landing p95 < 300 ms, health p95 < 50 ms), secrets hygiene with expiry guards.' },
+      { title: 'Evidence', content: 'CI/Full Rehearsal/Security/Deploy all green; incident arc (PASS → FAIL + AI report → PASS) reproducible from committed scripts; public status page live.' },
+    ],
+  },
+  {
+    id: 'aitendimento', title: 'AItendimento', subtitle: 'Human-in-the-loop WhatsApp AI Triage',
+    description: 'SaaS for Brazilian SMBs: AI classifies inbound WhatsApp messages (intent, urgency, confidence) and drafts human-warm PT-BR replies; a human approves every send. Exactly-once sends proven by real-Postgres drills; LGPD data rights built in.',
+    tags: ['Next.js 16', 'TypeScript', 'Baileys', 'BullMQ', 'Redis', 'PostgreSQL', 'Prisma', 'OpenAI', 'LGPD', 'Outbox Pattern'],
+    links: [
+      { label: 'GitHub', url: 'https://github.com/EvertonSt/aitendimento', icon: 'github' },
+      { label: 'Product', url: 'https://aitendimento.com.br', icon: 'live' },
+      { label: 'Demo video', url: '/showcase/aitendimento/demo-approval-loop-ait.mp4', icon: 'external' },
+    ],
+    metrics: [{ value: '100/100', label: 'Queue soak, zero double-sends' }, { value: '0', label: 'Auto-sent messages (by design)' }, { value: '4', label: 'Weeks of seeded sales pipeline' }],
+    status: 'live', statusLabel: 'Launching — aitendimento.com.br', featured: true,
+    media: { screenshot: '/showcase/aitendimento/07-thread-ai-panel.png', screenshotAlt: 'AItendimento AI analysis panel with confidence and suggested reply', video: '/showcase/aitendimento/demo-approval-loop-ait.mp4' },
+    caseStudy: [
+      { title: 'Problem', content: 'Brazilian SMBs lose leads to hours-slow WhatsApp replies. Full chatbot automation answers wrongly, hallucinates prices, and damages trust — the human must stay in control.' },
+      { title: 'Architecture', content: 'Next.js web (3-pane inbox, approval UI, metrics, LGPD self-service) + Node bot (Baileys session, inbound pipeline, AI triage, approval gate, BullMQ send queue). Triage outbox: claim → confirm → settle, so a crash between send and record can never double-send.' },
+      { title: 'Key Decisions', content: '1. The approval gate IS the product — zero auto-sends. 2. Exactly-once send path contract-tested against real Postgres + real BullMQ in CI (kill-mid-send reclaim, idempotency skip). 3. WhatsApp protocol constants pinned by tests, never mutated. 4. AI rules (≤3 sentences, ends with a question, no price promises) pinned by property tests.' },
+      { title: 'LGPD', content: 'One-click export and deletion proven by e2e specs against real data; per-model data map; PII-scrubbed logs; progressive login throttle.' },
+      { title: 'Evidence', content: 'Recorded approval loop (login → AI analysis → human edit → approve); 100/100 queue soak with exactly 100 provider calls; CI + Security green on every push.' },
+    ],
+  },
   {
     id: 'argus', title: 'Argus', subtitle: 'Autonomous AI QA Agent',
     description: 'An autonomous QA system that discovers application features, generates deterministic Playwright tests, triages failures, detects duplicate bugs, files GitHub issues, and enforces severity-based CI gates.',
@@ -71,7 +112,6 @@ export const flagshipProjects: Project[] = [
 ];
 
 export const additionalProjects: Project[] = [
-  { id: 'aitendimento', title: 'AItendimento', subtitle: 'Human-in-the-loop WhatsApp AI triage', description: 'SaaS for Brazilian SMBs: an AI classifies inbound WhatsApp messages and drafts human-warm PT-BR replies; a human approves every send. Dedicated number pairing, LGPD data rights built in, Stripe billing.', tags: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL', 'Redis', 'Baileys', 'Stripe', 'LGPD'], links: [{ label: 'Product', url: links.aitendimento, icon: 'live' }], status: 'live', statusLabel: 'Launching Sep 20 — aitendimento.com.br', featured: false },
   { id: 'qa-testing-suite', title: 'QA Testing Suite', subtitle: '', description: 'Automated API and UI testing suite using Mocha, Chai, Cypress, GitHub Actions, and HTML reports.', tags: ['Mocha', 'Chai', 'Cypress', 'GitHub Actions'], links: [{ label: 'GitHub', url: links.qaTestingSuite, icon: 'github' }], featured: false },
   { id: 'local-qa-copilot', title: 'Local QA Copilot', subtitle: '', description: 'Self-hosted AI QA assistant using Ollama with deterministic offline fallback. 138 passing tests.', tags: ['Ollama', 'Gherkin', 'Deterministic Fallback'], links: [{ label: 'GitHub', url: links.localQaCopilot, icon: 'github' }], featured: false },
   { id: 'ai-test-case-generator', title: 'AI Test Case Generator', subtitle: '', description: 'Converts plain-English feature descriptions into structured Gherkin-style test cases and Mocha scaffolding.', tags: ['Claude API', 'Gherkin', 'Mocha'], links: [{ label: 'GitHub', url: links.aiTestCaseGenerator, icon: 'github' }], featured: false },

@@ -23,6 +23,14 @@ export function FlagshipProject({ project, reverse }: Props) {
         {project.status && <StatusBadge status={project.status} label={project.statusLabel} />}
       </div>
       <p className="fp__desc">{project.description}</p>
+      {project.media && (
+        <figure className="fp__media">
+          <img src={project.media.screenshot} alt={project.media.screenshotAlt} loading="lazy" className="fp__screenshot" />
+          {project.media.video && (
+            <video className="fp__video" src={project.media.video} controls preload="none" width="960" />
+          )}
+        </figure>
+      )}
       {project.metrics && <div className="fp__metrics">{project.metrics.map((m, i) => (
         <div key={i} className="fp__metric"><span className="fp__metric-value">{m.value}</span><span className="fp__metric-label">{m.label}</span></div>
       ))}</div>}
