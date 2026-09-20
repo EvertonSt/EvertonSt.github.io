@@ -32,7 +32,7 @@ export const flagshipProjects: Project[] = [
     description: 'Self-hosted monitoring SaaS: describe website journeys (navigate, assert, click), schedule them, and get Playwright screenshot evidence, AI-written incident reports, and alerts. Its public status page proves the product by monitoring itself.',
     tags: ['Next.js 16', 'TypeScript', 'Prisma', 'PostgreSQL', 'Redis', 'BullMQ', 'Playwright', 'k6', 'GitHub Actions', 'LGPD'],
     links: [
-      { label: 'GitHub', url: 'https://github.com/EvertonSt/sitecheckin', icon: 'github' },
+      { label: 'Product', url: 'https://getsitecheckin.com', icon: 'live' },
       { label: 'Status page (live proof)', url: 'https://getsitecheckin.com/status', icon: 'live' },
       { label: 'Demo video', url: '/showcase/sitecheckin/demo-incident-arc-sc.mp4', icon: 'external' },
     ],
@@ -52,7 +52,6 @@ export const flagshipProjects: Project[] = [
     description: 'SaaS for Brazilian SMBs: AI classifies inbound WhatsApp messages (intent, urgency, confidence) and drafts human-warm PT-BR replies; a human approves every send. Exactly-once sends proven by real-Postgres drills; LGPD data rights built in.',
     tags: ['Next.js 16', 'TypeScript', 'Baileys', 'BullMQ', 'Redis', 'PostgreSQL', 'Prisma', 'OpenAI', 'LGPD', 'Outbox Pattern'],
     links: [
-      { label: 'GitHub', url: 'https://github.com/EvertonSt/aitendimento', icon: 'github' },
       { label: 'Product', url: 'https://aitendimento.com.br', icon: 'live' },
       { label: 'Demo video', url: '/showcase/aitendimento/demo-approval-loop-ait.mp4', icon: 'external' },
     ],
