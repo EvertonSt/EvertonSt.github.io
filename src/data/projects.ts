@@ -26,17 +26,63 @@ export interface Project {
   featured: boolean;
 }
 
+// Case-study gate: the three sections below (Proven Under Fire / The Trust
+// Surface / Shipped, Not Promised) go live with ONE flip of this flag - the
+// day the product is publicly available (go-live gate, VPS-WEEK-EXECUTION.md).
+// Claims were drafted against the stress-test verdict (2026-09-22) and must be
+// re-verified against CI before the flip. Description/metrics above are
+// ungated: they state only what CI already proves today.
+export const CASE_STUDY_LIVE = false;
+
+const gatedCaseStudy: CaseStudySection[] = CASE_STUDY_LIVE
+  ? [
+      {
+        title: 'Proven Under Fire',
+        content: 'Before VPS day, the whole system ran a six-layer stress test ' +
+          '(P0-P6, 2026-09-22): 122 unit specs, 25/25 Playwright end-to-end ' +
+          'journeys - tenant isolation, LGPD export/delete, the Stripe ' +
+          'lifecycle, a full auth-to-flow-to-run arc, axe accessibility - plus ' +
+          'rehearsal drills that prove the deploy path catches failures AND ' +
+          'recovers (actions-doctor 25/25, vps-day-detect 26/26). Under load: ' +
+          '500/500 health requests at 25-concurrency (p95 97 ms), 200/200 ' +
+          'landing requests (p95 184 ms), zero non-200s. It found three real ' +
+          'bugs before a customer could - including a missing health endpoint ' +
+          'the deploy path gates on. All fixed, all green by SHA.',
+      },
+      {
+        title: 'The Trust Surface',
+        content: 'Monitoring SaaS has a paradox: you cannot watch the watcher ' +
+          'without trusting it. The answer is making the product its own ' +
+          'evidence. The public /status page is a real SiteCheckIn flow ' +
+          'monitoring the real landing page - the badge and history are the ' +
+          'product dogfooding itself. Failure evidence ships through an ' +
+          'authorization-checked route (404, never 403 - no existence leaks), ' +
+          'rate limiting is Redis-backed and never fails open, and every ' +
+          'deploy is health-gated: a failed gate exits 1 before users see it.',
+      },
+      {
+        title: 'Shipped, Not Promised',
+        content: 'The copy discipline is a shipped artifact too: a ' +
+          'truth-boundary contract (docs/LAUNCH-COPY.md) that the landing-copy ' +
+          'test suite enforces in CI - claims must match behavior or the build ' +
+          'goes red. Free tier (1 flow) through Agency ($299) bills via Stripe ' +
+          'with idempotent webhook handling. Every claim on this page is ' +
+          'reproducible from the running product today.',
+      },
+    ]
+  : [];
+
 export const flagshipProjects: Project[] = [
   {
     id: 'sitecheckin', title: 'SiteCheckIn', subtitle: 'Website-Flow Monitoring with AI Incident Reports',
-    description: 'Hosted monitoring SaaS: describe website journeys (navigate, assert, click), schedule them, and get Playwright screenshot evidence, AI-written incident reports, and alerts. Its public status page proves the product by monitoring itself.',
+    description: 'Website-flow monitoring SaaS: describe website journeys (navigate, assert, click), schedule them, and get Playwright screenshot evidence, AI-written incident reports, and alerts. Its public status page proves the product by monitoring itself.',
     tags: ['Next.js 16', 'TypeScript', 'Prisma', 'PostgreSQL', 'Redis', 'BullMQ', 'Playwright', 'k6', 'GitHub Actions', 'LGPD'],
     links: [
       { label: 'Product', url: 'https://getsitecheckin.com', icon: 'live' },
       { label: 'Status page (live proof)', url: 'https://getsitecheckin.com/status', icon: 'live' },
       { label: 'Demo video', url: '/showcase/sitecheckin/demo-incident-arc-sc.mp4', icon: 'external' },
     ],
-    metrics: [{ value: '91+', label: 'Unit specs' }, { value: '12', label: 'E2E suites' }, { value: '4/4', label: 'CI workflows green' }],
+    metrics: [{ value: '122', label: 'Unit specs' }, { value: '25/25', label: 'E2E journeys green' }, { value: '6/6', label: 'CI workflows green' }], // re-quoted from CI-quoted files (stress-test verdict 2026-09-22)
     status: 'live', statusLabel: 'Launching — getsitecheckin.com', featured: true,
     media: { screenshot: '/showcase/sitecheckin/21-status-operational.png', screenshotAlt: 'SiteCheckIn public status page monitoring its own landing page', video: '/showcase/sitecheckin/demo-incident-arc-sc.mp4' },
     caseStudy: [
@@ -45,6 +91,7 @@ export const flagshipProjects: Project[] = [
       { title: 'Key Decisions', content: '1. The product monitors itself in production — public /status is the proof surface. 2. Evidence authorization is 404-not-403 (no existence leaks). 3. Rate limiting never fails open (Redis-backed). 4. Every deploy path is rehearsed in CI (fake-SSH stage-detection drill).' },
       { title: 'Hardening', content: '12-phase program: per-IP + per-credential progressive throttles, webhook fuzz matrices, tenant-isolation test matrix, LGPD export/delete drills, k6 SLO gates (landing p95 < 300 ms, health p95 < 50 ms), secrets hygiene with expiry guards.' },
       { title: 'Evidence', content: 'CI/Full Rehearsal/Security/Deploy all green; incident arc (PASS → FAIL + AI report → PASS) reproducible from committed scripts; public status page live.' },
+      ...gatedCaseStudy,
     ],
   },
   {
