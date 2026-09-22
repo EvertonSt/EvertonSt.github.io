@@ -38,7 +38,7 @@ const gatedCaseStudy: CaseStudySection[] = CASE_STUDY_LIVE
   ? [
       {
         title: 'Proven Under Fire',
-        content: 'Before VPS day, the whole system ran a six-layer stress test ' +
+        content: 'Before VPS day, the whole system ran a seven-phase stress test ' +
           '(P0-P6, 2026-09-22): 122 unit specs, 25/25 Playwright end-to-end ' +
           'journeys - tenant isolation, LGPD export/delete, the Stripe ' +
           'lifecycle, a full auth-to-flow-to-run arc, axe accessibility - plus ' +
@@ -82,7 +82,7 @@ export const flagshipProjects: Project[] = [
       { label: 'Status page (live proof)', url: 'https://getsitecheckin.com/status', icon: 'live' },
       { label: 'Demo video', url: '/showcase/sitecheckin/demo-incident-arc-sc.mp4', icon: 'external' },
     ],
-    metrics: [{ value: '122', label: 'Unit specs' }, { value: '25/25', label: 'E2E journeys green' }, { value: '6/6', label: 'CI workflows green' }], // re-quoted from CI-quoted files (stress-test verdict 2026-09-22)
+    metrics: [{ value: '122', label: 'Unit specs' }, { value: '25/25', label: 'E2E journeys green' }, { value: '6/6', label: 'CI build tasks green' }], // re-quoted from CI-quoted files (stress-test verdict 2026-09-22)
     status: 'live', statusLabel: 'Launching — getsitecheckin.com', featured: true,
     media: { screenshot: '/showcase/sitecheckin/21-status-operational.png', screenshotAlt: 'SiteCheckIn public status page monitoring its own landing page', video: '/showcase/sitecheckin/demo-incident-arc-sc.mp4' },
     caseStudy: [
