@@ -20,7 +20,17 @@ export default defineConfig({
   retries: process.env.CI ? 1 : 0,
   workers: process.env.CI ? 2 : undefined,
   timeout: 30_000,
-  expect: { timeout: 7_500 },
+  /*
+   * A screenshot assertion has to capture the page twice and compare the two
+   * captures for stability before it compares either to the baseline. For a
+   * full-page capture of a long document at 1440px that is a lot of rendering,
+   * and the seven-and-a-half second default expired often enough to produce
+   * "failed to take two consecutive stable screenshots" - a capture failure,
+   * not a visual difference. Flaky visual tests get disabled, and this suite
+   * is the one thing in the repository that must never be disabled: it exists
+   * because four visual defects shipped here through a green pipeline.
+   */
+  expect: { timeout: 20_000 },
   reporter: process.env.CI ? [["github"], ["html", { open: "never" }]] : [["list"]],
   use: {
     baseURL: BASE_URL,
