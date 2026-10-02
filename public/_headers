@@ -1,0 +1,29 @@
+# Response headers for hosts that can set them (Netlify, Cloudflare Pages).
+#
+# GitHub Pages ignores this file - it has no way to configure response headers -
+# which is why index.html also carries a meta Content-Security-Policy. The meta
+# version is the weaker of the two: `frame-ancestors` and `form-action` are
+# ignored in a meta policy, so the directives that matter most live here. If the
+# site is ever moved to a host that can serve headers, this file takes over and
+# the meta tag becomes belt-and-braces.
+#
+# Keep the two in step: `tests/unit/index-html.test.ts` asserts the meta policy
+# is present so it cannot be deleted silently during a redesign.
+
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Cross-Origin-Opener-Policy: same-origin
+
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.svg
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable

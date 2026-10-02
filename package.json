@@ -1,0 +1,84 @@
+{
+  "name": "everton-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Recruiter-facing portfolio and resume site for Everton S. Andrade.",
+  "license": "UNLICENSED",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write .",
+    "test": "npm run test:unit && npm run test:e2e",
+    "gate": "bash scripts/gate.sh",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
+    "test:unit:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "verify:links": "tsx scripts/check-links.ts",
+    "verify:assets": "tsx scripts/verify-assets.ts",
+    "verify:attribution": "tsx scripts/check-attribution.ts",
+    "verify:cv": "tsx scripts/verify-cv.ts",
+    "verify": "npm run verify:links && npm run verify:assets && npm run verify:cv && npm run verify:attribution",
+    "cv": "tsx scripts/generate-cv.ts",
+    "cv:txt": "tsx scripts/generate-resume-txt.ts",
+    "lighthouse": "lhci autorun",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.5",
+    "@lhci/cli": "0.15.1",
+    "@playwright/test": "1.63.0",
+    "@testing-library/jest-dom": "7.0.1",
+    "@testing-library/react": "16.3.3",
+    "@testing-library/user-event": "14.6.7",
+    "@types/node": "26.6.4",
+    "@types/pdfkit": "0.17.6",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.1",
+    "@vitest/coverage-v8": "5.0.3",
+    "eslint": "9.39.5",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "eslint-plugin-react-refresh": "0.5.7",
+    "globals": "17.13.0",
+    "happy-dom": "20.14.5",
+    "husky": "9.1.7",
+    "lint-staged": "17.6.0",
+    "pdfkit": "0.20.2",
+    "prettier": "3.9.9",
+    "serve": "14.2.6",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.0",
+    "vite": "8.3.2",
+    "vitest": "5.0.3"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{js,mjs,cjs}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{css,json,md,yml,yaml,html}": [
+      "prettier --write"
+    ]
+  }
+}

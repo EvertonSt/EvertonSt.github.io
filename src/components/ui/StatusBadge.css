@@ -1,0 +1,54 @@
+/*
+ * One colour per status, each bound to a token so a literal cannot drift out of
+ * sync with the themes. The dot is decorative and the label is always present as
+ * text, so the meaning never depends on distinguishing two hues.
+ */
+.status-badge {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  color: var(--text-secondary);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+}
+
+.status-badge__dot {
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--text-muted);
+  transform: translateY(1px);
+}
+
+.status-badge__text {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.35em;
+}
+
+.status-badge__detail {
+  color: var(--text-muted);
+}
+
+.status-badge--live .status-badge__dot {
+  background: var(--accent-green);
+}
+
+.status-badge--demo .status-badge__dot {
+  background: var(--accent-blue);
+}
+
+.status-badge--launching-october .status-badge__dot,
+.status-badge--launching-november .status-badge__dot {
+  background: var(--accent-amber);
+}
+
+.status-badge--in-development .status-badge__dot,
+.status-badge--reference .status-badge__dot {
+  background: var(--text-muted);
+}

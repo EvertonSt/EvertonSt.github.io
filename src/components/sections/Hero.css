@@ -1,0 +1,115 @@
+.hero {
+  padding: var(--space-24) var(--space-6) var(--space-16);
+  border-bottom: 1px solid var(--border-subtle);
+  background:
+    radial-gradient(
+      60rem 30rem at 15% -10%,
+      color-mix(in srgb, var(--accent-violet) 14%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      45rem 25rem at 90% 0%,
+      color-mix(in srgb, var(--accent-blue) 10%, transparent),
+      transparent 70%
+    );
+}
+
+.hero__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.hero__availability {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  margin-bottom: var(--space-6);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-secondary);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+}
+
+.hero__availability-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--accent-green);
+}
+
+.hero__role {
+  margin-bottom: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-violet);
+}
+
+.hero__title {
+  /* Wide enough to hold the claim in three lines. At 22ch it wrapped to five
+     and pushed the calls to action below the fold on a laptop, which is exactly
+     where a recruiter stops reading. */
+  max-width: 30ch;
+  margin-bottom: var(--space-5);
+}
+
+.hero__subtitle {
+  max-width: var(--max-width-prose);
+  margin-bottom: var(--space-6);
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+}
+
+.hero__skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-8);
+}
+
+.hero__skill {
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-xs);
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+}
+
+.hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+
+.hero__meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+@media (max-width: 900px) {
+  .hero {
+    padding: var(--space-16) var(--space-4) var(--space-12);
+  }
+
+  .hero__title {
+    max-width: none;
+  }
+}

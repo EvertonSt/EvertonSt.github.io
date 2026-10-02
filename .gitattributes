@@ -1,0 +1,15 @@
+# Normalise line endings in the repository so a Windows checkout and a Linux
+# runner produce byte-identical files. Without this, prettier --check passes
+# locally and fails on the runner purely because of CRLF.
+* text=auto eol=lf
+
+*.png binary
+*.pdf binary
+*.ico binary
+*.woff2 binary
+
+# Keep diffs readable for the files a reviewer actually reads line-by-line.
+*.ts text diff=typescript
+*.tsx text diff=typescript
+*.css text
+*.md text

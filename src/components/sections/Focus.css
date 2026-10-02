@@ -1,0 +1,35 @@
+.focus__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: var(--space-4);
+}
+
+.focus__card {
+  padding: var(--space-5);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.focus__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-bottom: var(--space-4);
+  color: var(--accent-violet);
+  background: color-mix(in srgb, var(--accent-violet) 14%, transparent);
+  border-radius: var(--radius-md);
+}
+
+.focus__card-title {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+}
+
+.focus__card-body {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}

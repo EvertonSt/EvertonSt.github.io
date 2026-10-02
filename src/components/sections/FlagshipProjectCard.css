@@ -1,0 +1,133 @@
+.fp {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.fp + .fp {
+  margin-top: var(--space-6);
+}
+
+.fp__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.fp__title {
+  font-size: var(--text-2xl);
+}
+
+.fp__subtitle {
+  margin-top: var(--space-1);
+  color: var(--accent-violet);
+  font-size: var(--text-sm);
+  font-family: var(--font-mono);
+}
+
+.fp__description {
+  max-width: var(--max-width-prose);
+  color: var(--text-secondary);
+}
+
+.fp__metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.fp__metric {
+  min-width: 7rem;
+  padding: var(--space-3) var(--space-4);
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+}
+
+.fp__metric dd {
+  display: flex;
+  flex-direction: column;
+}
+
+.fp__metric-value {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.fp__metric-label {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.fp__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.fp__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.fp__status-note {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.fp__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  align-self: flex-start;
+  padding: var(--space-2) 0;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--accent-violet);
+}
+
+.fp__toggle:hover {
+  color: var(--accent-blue);
+}
+
+/* Rotates to point at the content it reveals rather than only at the page flow. */
+.fp__toggle-icon {
+  transition: transform var(--duration-base) var(--ease-standard);
+}
+
+.fp__toggle-icon--open {
+  transform: rotate(-90deg);
+}
+
+.fp__case-study {
+  display: grid;
+  gap: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.fp__cs-part {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.fp__cs-title {
+  font-size: var(--text-sm);
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.fp__cs-body {
+  max-width: var(--max-width-prose);
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+}

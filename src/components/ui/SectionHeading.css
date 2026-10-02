@@ -1,0 +1,18 @@
+.section-heading {
+  margin-bottom: var(--space-10);
+  max-width: var(--max-width-prose);
+}
+
+.section-heading--centered {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.section-heading__title {
+  margin-bottom: var(--space-3);
+}
+
+.section-heading__subtitle {
+  color: var(--text-secondary);
+  font-size: var(--text-lg);
+}

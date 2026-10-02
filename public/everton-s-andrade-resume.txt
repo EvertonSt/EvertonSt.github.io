@@ -1,0 +1,58 @@
+Everton S. Andrade
+Software Engineer in Test · QA Automation · AI/LLM Test Tooling
+everton_st@outlook.com | github.com/EvertonSt | linkedin.com/in/everton-s-andrade | Paripiranga, Bahia, Brazil · UTC−3
+
+SUMMARY
+
+I like finding out why software fails and then building the thing that makes the next occurrence cheap to catch.
+
+The through-line in everything above is a preference for deterministic verdicts. Models are genuinely useful inside a test or triage system, and genuinely dangerous as the thing that decides whether a build passes. I have used them in both positions and the difference in reliability is not subtle.
+
+I am based in Paripiranga, Bahia, on UTC−3, fluent in English, and comfortable working with teams in the US and Europe. I am looking for a remote QA automation or SDET role where the test infrastructure is treated as a product rather than a chore.
+
+EXPERIENCE
+
+Independent QA Automation Engineer and Tooling Developer — Self-employed
+August 2020 — Present · Brazil
+  - Designed and shipped Argus, an autonomous QA agent with a 313-test suite that generates Playwright tests, triages failures and files deduplicated issues.
+  - Built and published Cerberus CI to npm and the GitHub Marketplace: a CI quality gate with 237 tests and 88% line coverage, running provider-agnostic across four model providers.
+  - Built Enlace, an ISP operations platform spanning a Fastify service, React portal, Tauri console and Expo app, deployed on Railway and Vercel.
+  - Built SiteCheckIn and AItendimento, two commercial products shipping in 2026, covering multi-tenant SaaS, billing, WhatsApp automation and the compliance work that goes with both.
+
+Software Development Intern — Ages
+June 2019 — June 2020 · Paripiranga, Bahia
+  - University internship on a C# and .NET desktop ERP built by a six-person team in a three-layer architecture (business logic, data access, GUI and model) on SQL Server.
+  - Owned business-logic and data-access work, database integration, and version control alongside the rest of the team. Worked in Java during the internship.
+
+PROJECTS
+
+SiteCheckIn (Launching October 2026)
+  Guest check-in and revenue tracking for short-stay accommodation
+  https://github.com/EvertonSt/sitecheckin
+
+AItendimento (Launching November 2026)
+  WhatsApp-first customer service automation
+  https://github.com/EvertonSt/aitendimento
+
+Argus (Demo data)
+  Autonomous QA agent with a deterministic verdict
+  https://github.com/EvertonSt/argus
+  https://argus-dashboard-jade.vercel.app/
+
+Cerberus CI (In production)
+  CI gate that separates a flaky test from a real regression
+  https://github.com/EvertonSt/cerberus-ci
+  https://www.npmjs.com/package/cerberus-ci
+  https://everton-cerberus-site.vercel.app/
+
+Enlace (Demo data)
+  Operations platform for an internet service provider
+  https://github.com/EvertonSt/enlace
+  https://enlace-desktop-b9dq.vercel.app/dashboard
+
+TECHNICAL SKILLS
+Testing and quality: Playwright, Cypress, API testing, Deterministic test generation, Failure triage, Duplicate-defect detection, Accessibility testing, Regression budgets
+Languages: TypeScript, JavaScript, Python, SQL, C#, Java
+Models and evaluation: LLM evaluation, Model routing, Prompt design, Structured output, Guardrails, Offline inference
+Full-stack: React, Next.js, Fastify, Express, WebSockets, Tauri, Expo, REST APIs
+Infrastructure: GitHub Actions, CI/CD pipelines, Docker, Vercel, Railway, PostgreSQL, SQLite, npm publishing

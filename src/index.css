@@ -1,0 +1,5 @@
+/*
+ * One stylesheet entry. Vite extracts the imports into a single hashed CSS file
+ * at build time, so the browser still makes one request.
+ */
+@import "./styles/global.css";

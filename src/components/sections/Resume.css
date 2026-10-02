@@ -1,0 +1,122 @@
+/*
+ * The résumé reads as a document: one column, a measure that fits a printed
+ * page, and headings that a parser can turn into sections. The decorative
+ * chrome of the rest of the site is deliberately absent here.
+ */
+.resume__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+}
+
+.resume__body {
+  max-width: 52rem;
+  padding: var(--space-8);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.resume__header {
+  padding-bottom: var(--space-5);
+  margin-bottom: var(--space-6);
+  border-bottom: 2px solid var(--border-strong);
+}
+
+.resume__name {
+  font-size: var(--text-3xl);
+}
+
+.resume__role {
+  margin-top: var(--space-1);
+  color: var(--accent-violet);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+.resume__contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.resume__block + .resume__block {
+  margin-top: var(--space-6);
+}
+
+.resume__block-title {
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-1);
+  font-size: var(--text-sm);
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.resume__block p {
+  margin-bottom: var(--space-2);
+}
+
+.resume__entry + .resume__entry {
+  margin-top: var(--space-4);
+}
+
+.resume__entry-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2);
+  color: var(--text-primary);
+}
+
+.resume__entry-head span {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.resume__entry-body {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.resume__bullets {
+  display: grid;
+  gap: var(--space-2);
+  padding-left: var(--space-5);
+  list-style: disc;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.resume__bullets--tight {
+  gap: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+/*
+ * Repository URLs are one unbreakable token. Without an explicit break
+ * opportunity they push the page 8px wider than a 320px viewport, which draws
+ * a horizontal scrollbar on a phone - and a horizontal scrollbar reads as "this
+ * site is broken" before a word is read.
+ */
+.resume__bullets--tight li {
+  overflow-wrap: anywhere;
+}
+
+.resume__skills {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+@media (max-width: 640px) {
+  .resume__body {
+    padding: var(--space-5);
+  }
+}

@@ -1,0 +1,32 @@
+# Dependencies and build output
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+
+# Test artefacts. The committed screenshot baselines live next to the spec that
+# produces them, in e2e/*-snapshots/, so these are the run-time leftovers.
+test-results/
+playwright-report/
+blob-report/
+.playwright/
+
+# Local environment. The site is fully static and needs no secrets; this is
+# here so a future addition cannot commit one by accident.
+.env
+.env.*
+!.env.example
+
+# Editor and OS noise
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+
+# Logs
+*.log
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*

@@ -1,0 +1,84 @@
+.experience__list {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.experience__card {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.experience__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.experience__role {
+  font-size: var(--text-lg);
+}
+
+.experience__company {
+  margin-top: var(--space-1);
+  color: var(--accent-violet);
+  font-size: var(--text-sm);
+}
+
+.experience__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-1);
+  text-align: right;
+}
+
+.experience__period {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+
+.experience__place {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.experience__achievements {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.experience__achievements li {
+  position: relative;
+  padding-left: var(--space-5);
+  max-width: var(--max-width-prose);
+  color: var(--text-secondary);
+}
+
+/* A bullet drawn with the border rather than a glyph, so it cannot be read
+   aloud as a character and cannot fall back to a missing-font box. */
+.experience__achievements li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 0.4rem;
+  height: 0.4rem;
+  background: var(--accent-violet);
+  border-radius: var(--radius-full);
+}
+
+.experience__links {
+  display: flex;
+  gap: var(--space-4);
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 640px) {
+  .experience__meta {
+    align-items: flex-start;
+    text-align: left;
+  }
+}

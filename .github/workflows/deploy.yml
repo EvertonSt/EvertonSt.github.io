@@ -1,0 +1,71 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# This is the only workflow that needs write access, and only to the Pages
+# deployment. `contents: read` is kept so a compromised step cannot push to the
+# repository.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Not cancellable. Cancelling midway can leave a deployment with no environment
+# reference, which is a half-applied release with no rollback. Serialising on
+# the `pages` group also stops two deploys racing for the same environment.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install (lockfile-faithful)
+        run: npm ci
+
+      # The deploy job rebuilds rather than downloading CI's artefact. The two
+      # must produce the same bytes, and this way the published site is built by
+      # the job that publishes it - there is no window where the artefact could
+      # be stale, replaced or uploaded from a different commit.
+      - name: Build
+        run: npm run build
+
+      # Refuse to ship an artefact whose résumé files do not match the data. A
+      # published PDF that has drifted from the page is a false claim, and it is
+      # the one artefact a recruiter will believe without checking.
+      - name: Résumé artefacts match the data
+        run: npm run verify:cv
+
+      - name: Attribution audit
+        run: npm run verify:attribution
+
+      - name: Configure Pages
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0
+        with:
+          path: dist/
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

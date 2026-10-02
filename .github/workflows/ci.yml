@@ -1,0 +1,216 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Default to the least privilege and widen per job. Nothing here needs write
+# access to the repository; the only job that writes is deploy, and it runs from
+# a separate workflow on main with its own token scope.
+permissions:
+  contents: read
+
+# A new push supersedes the run in flight for the same ref. For a static site
+# that is safe - the newest commit is the only one worth testing - and it keeps
+# the Actions minutes bill from accumulating on a queue nobody is watching.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CI: true
+  NODE_VERSION: "22"
+
+jobs:
+  quality:
+    name: lint + typecheck + build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install (lockfile-faithful)
+        run: npm ci
+
+      - name: Format check
+        run: npm run format:check
+
+      - name: Lint
+        run: npm run lint
+
+      # `tsc -b` with the project references, not `tsc --noEmit` on one file:
+      # a type error anywhere in src, tests or scripts must fail the build.
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      - name: Upload build
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: static-site
+          path: dist/
+          retention-days: 7
+
+  unit:
+    name: unit (vitest + coverage floor)
+    runs-on: ubuntu-latest
+    needs: quality
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install (lockfile-faithful)
+        run: npm ci
+
+      # The coverage thresholds live in vitest.config.ts and fail the run there,
+      # so this step cannot report success with coverage below the floor.
+      - name: Unit tests
+        run: npm run test:unit:coverage
+
+  e2e:
+    name: e2e (Playwright, desktop + mobile)
+    runs-on: ubuntu-latest
+    needs: quality
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      # A new step inherits its own job's environment, not a sibling job's. The
+      # browser is installed here because this job runs the browser; the job
+      # above does not, and would not have provided it.
+      - name: Install Playwright chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Download build
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: static-site
+          path: dist/
+
+      - name: E2E (functional, language, mobile, visual regression)
+        run: npx playwright test
+
+      - name: Upload failure artefacts
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+  readiness:
+    name: readiness (links, assets, résumé, attribution, Lighthouse)
+    runs-on: ubuntu-latest
+    needs: quality
+    steps:
+      - name: Checkout
+        # Full history on purpose: the attribution audit walks every commit
+        # reachable from any ref, and a shallow clone cannot see the ones before
+        # the cut. A shallow scan would report a clean repository while the
+        # trailer-carrying commits are still fetchable by SHA on GitHub.
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install (lockfile-faithful)
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Internal link check
+        run: npm run verify:links
+
+      - name: Asset dimensions and referenced files
+        run: npm run verify:assets
+
+      - name: Résumé artefacts match the data
+        run: npm run verify:cv
+
+      # The rule this repository lives by: the owner is the sole author of every
+      # commit, and this fails the build rather than reporting a warning.
+      - name: Attribution audit (files + full history + authorship)
+        run: npm run verify:attribution
+
+      - name: Install Playwright chromium
+        run: npx playwright install --with-deps chromium
+
+      # Budgets are measured and then pinned in lighthouserc.json, so a
+      # performance regression fails CI instead of being noticed later.
+      - name: Lighthouse budgets
+        run: npm run lighthouse
+
+  security:
+    name: security (audit + gitleaks)
+    runs-on: ubuntu-latest
+    needs: quality
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install (lockfile-faithful)
+        run: npm ci
+
+      # Two audits, because one blanket `npm audit` is a red light that
+      # everyone learns to ignore. Every high advisory in the tree descends
+      # from @lhci/cli - the Lighthouse runner, a CI-only measurement tool
+      # that is never bundled, never served and never shipped. Production
+      # dependencies are held to high; the development tree is watched at
+      # critical, so a real problem in the toolchain still fails the build
+      # while a dev-only measurement dependency does not.
+      - name: Dependency audit, production (fail on high or critical)
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: Dependency audit, development (fail on critical)
+        run: npm audit --audit-level=critical
+
+      - name: Secret scan
+        uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

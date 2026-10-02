@@ -1,0 +1,64 @@
+version: 2
+
+updates:
+  # Dependencies. Grouped so a routine monthly bump is one reviewable pull
+  # request instead of forty, and so a security fix is never buried behind an
+  # unrelated minor bump.
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "08:00"
+      timezone: America/Bahia
+    open-pull-requests-limit: 5
+    groups:
+      typescript:
+        patterns:
+          - "typescript"
+          - "@typescript-eslint/*"
+          - "typescript-eslint"
+      testing:
+        patterns:
+          - "vitest"
+          - "@vitest/*"
+          - "happy-dom"
+          - "@playwright/*"
+          - "@testing-library/*"
+      linting:
+        patterns:
+          - "eslint"
+          - "@eslint/*"
+          - "eslint-*"
+          - "prettier"
+      # Everything else moves together, so the diff reads as "routine bump".
+      production-dependencies:
+        dependency-type: production
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "@typescript-eslint/*"
+          - "typescript*"
+          - "vitest*"
+          - "@vitest/*"
+          - "happy-dom"
+          - "@playwright/*"
+          - "@testing-library/*"
+          - "eslint*"
+          - "@eslint/*"
+          - "prettier"
+
+  # Actions are pinned to commit SHAs, which Dependabot updates in place along
+  # with the version comment. A tag-only pin is not a pin: the tag owner can
+  # move it, and the workflow runs whatever is there now.
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "08:00"
+      timezone: America/Bahia
+    groups:
+      actions:
+        patterns:
+          - "*"

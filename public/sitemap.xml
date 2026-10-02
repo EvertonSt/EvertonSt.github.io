@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!--
+    One indexable URL. The site has a single document and switches language with
+    a query parameter, so both alternates are declared here as hreflang links on
+    the same entry rather than as separate pages, which would be false: they
+    resolve to the same document.
+  -->
+  <url>
+    <loc>https://evertonst.github.io/</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://evertonst.github.io/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://evertonst.github.io/?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://evertonst.github.io/" />
+  </url>
+</urlset>

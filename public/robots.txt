@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://evertonst.github.io/sitemap.xml
