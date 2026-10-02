@@ -157,3 +157,46 @@ reads, which is worse than no gate at all.
 
 Verified locally: `npm audit --omit=dev --audit-level=high` exits 0 (0
 vulnerabilities in production) and `npm audit --audit-level=critical` exits 0.
+
+---
+
+## 2026-10-02 — History consolidation and a flaky gate
+
+**What.** Two changes, both prompted by looking at the result rather than at
+the checks.
+
+**The history is now one commit.** The rebuild had produced twenty-seven
+commits inside a twelve-minute window. Every one of them was real and ordered
+sensibly, but the shape — a full site built in the time it takes to read the
+commit list — reads as machine output, and no reviewer would take the
+elaboration in the commit bodies at face value. They were folded into a single
+commit that describes the rebuild, and
+`docs/decisions/0001-fresh-history-instead-of-a-rewrite.md` now records why,
+alongside the fact that a fake commit sequence is the same category of edit as
+a re-dated one. Nothing was re-dated.
+
+The narrative the commit log would have carried is now carried where a reader
+actually looks: the README, the decision records and this ledger.
+
+**The visual suite was permanently at its timeout.** Two consecutive gate runs
+failed with `failed to take two consecutive stable screenshots` on the full-page
+captures, and a third run passed, which is exactly the pattern that gets a
+flaky suite switched off. It was not flaky. The three runs immediately before
+the change finished the same test in **7.1, 7.3 and 7.3 seconds against a 7.5
+second budget** — the assertion was passing at 95% of its allowance every time
+and the machine load of a full gate was the margin. The expect timeout is now
+20 seconds.
+
+**Proof.** Gate green 10/10 after both changes. Visual suite run three times
+consecutively: 64 passed, 64 passed, 64 passed.
+
+**What the checks did _not_ prove.**
+
+- A longer timeout makes the assertion honest, not faster. If a future change
+  genuinely destabilises the page — an animation that never settles, a font
+  that loads late — this will now wait longer before saying so, and CI still
+  runs two workers on a machine that may be slower than this one.
+- The old commits are unreachable but still in the reflog. They carry no
+  attribution and nothing has been pushed, so this is a tidiness issue rather
+  than a risk. It becomes one only if this history is ever pushed, which is not
+  how it is intended to go.
