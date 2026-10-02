@@ -273,3 +273,11 @@ Dependabot's three open pull requests were closed without merging; one proposed
 TypeScript 7, which the type-aware lint rules cannot support. Dependabot now
 proposes major bumps only when asked, and still sends routine and security
 updates on its own.
+
+**Lighthouse has now been measured.** Three runs of the production build in CI
+scored **100 performance, 100 accessibility, 100 best practices, 100 SEO**. The
+budgets in `lighthouserc.json` were written as targets before anything had been
+measured; the first run passed them, so the README now carries the observed
+numbers and the caveat above is closed. A score of 100 on every axis says the
+page is fast, legible and parseable — it does not say the words are any good,
+which is the part a reader decides.

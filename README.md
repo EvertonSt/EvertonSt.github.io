@@ -57,6 +57,12 @@ pointing at nothing.
 | `npm run cv` / `npm run cv:txt`   | Regenerate the résumé PDF / plain text               |
 | `npm run lighthouse`              | Lighthouse budgets against the production build      |
 
+**Measured, not promised.** The first CI run of the production build scored
+**100 / 100 / 100 / 100** — performance, accessibility, best practices and SEO
+— across three runs on 2 October 2026. `lighthouserc.json` holds the budgets
+those runs were checked against, so a regression fails the build instead of
+being noticed later.
+
 `npm run gate` is the command that matters locally. It runs formatter, linter,
 typechecker, unit tests, build, the repository verifiers and the E2E suite, and
 prints each step's verdict separately. The separation exists because
