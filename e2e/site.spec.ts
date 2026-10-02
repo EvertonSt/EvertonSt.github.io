@@ -89,9 +89,18 @@ test.describe("navigation", () => {
   test("exposes the skip link as the first stop for a keyboard user", async ({ page }) => {
     await page.goto("/");
 
+    const skip = page.getByRole("link", { name: /skip to content/i });
+    /*
+     * Wait for the link to exist before pressing Tab. The page is a React app:
+     * `goto` resolves on the document, and on a loaded CI runner the bundle has
+     * not finished mounting yet. A Tab pressed into an empty document focuses
+     * the body, and the assertion then fails for a reason that has nothing to
+     * do with the skip link. The first CI run failed exactly that way.
+     */
+    await expect(skip).toBeAttached();
+
     await page.keyboard.press("Tab");
 
-    const skip = page.getByRole("link", { name: /skip to content/i });
     await expect(skip).toBeFocused();
     await expect(skip).toBeInViewport();
   });

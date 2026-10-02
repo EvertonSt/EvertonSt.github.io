@@ -200,3 +200,55 @@ consecutively: 64 passed, 64 passed, 64 passed.
   attribution and nothing has been pushed, so this is a tidiness issue rather
   than a risk. It becomes one only if this history is ever pushed, which is not
   how it is intended to go.
+
+---
+
+## 2026-10-02 — Publication, and the three failures the first CI run found
+
+**What.** The site was published to `EvertonSt/EvertonSt.github.io` and is live
+at `https://evertonst.github.io/`. The first CI run on the published history was
+red in three places, and all three were real.
+
+**Publication.** The previous repository was renamed to `portfolio-legacy`
+rather than overwritten, so its 23 commits are still readable and still private.
+A new repository of the same name was created, pushed, and made public —
+GitHub Free does not serve Pages from a private repository, so public visibility
+was the only route to a live site. The repository now shows **one contributor,
+three commits**.
+
+**The visual suite compared pixels across operating systems.** All sixty
+comparisons failed on the Linux runner: the committed baselines are
+`-chromium-win32.png`, and a baseline rendered on Windows cannot match a render
+on Linux because font rasterisation is not portable. The pixel comparison now
+runs only where a baseline for that platform exists and skips loudly where none
+does, and the same file gained the structural assertions that were previously
+buried inside it — a panel that occupies the screen when open, a skip link that
+becomes visible on focus, and every pinned section rendering with a real width
+and height, in both schemes. Those run everywhere. All four defects from
+2026-10-01 were structural, and not one of them needed a pixel diff.
+
+**A keyboard test raced the render.** The skip-link test pressed Tab
+immediately after `goto`, which resolves on the document rather than on the
+React mount. On a loaded runner the bundle had not mounted, Tab focused the
+body, and the assertion failed for a reason that had nothing to do with the
+skip link. It now waits for the link to exist before pressing a key.
+
+**A third failure was not a defect in the site.** The secret scan errored with
+`ambiguous argument '1cfd846^..cd64819'` — the scan range starts one commit
+before the first new commit, and that first commit is the repository's root, so
+it has no parent. It is an artifact of the initial push only, and the next push
+has an ordinary range.
+
+**Proof.** Gate green locally. 112 browser tests pass with 4 skipped, against
+110 before this change. The live deployment serves the correct document, the
+social card, both résumé artefacts and a real 404.
+
+**What the checks did _not_ prove.**
+
+- Nothing here has been verified in Safari, Firefox or on a real phone. The
+  suite runs Chromium only.
+- The pixel baselines have now never been compared against a non-Windows
+  render. If a Linux baseline is ever generated it will not match these, and
+  that is the platform talking rather than a regression.
+- Lighthouse has still never been run. Its budgets remain targets, and the
+  readiness job now measures them on every push.
