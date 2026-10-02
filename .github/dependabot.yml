@@ -12,6 +12,13 @@ updates:
       time: "08:00"
       timezone: America/Bahia
     open-pull-requests-limit: 5
+    # Major bumps are opt-in, never automatic. The toolchain is pinned exactly
+    # for a reason: the linter's type-aware rules require a compiler below a
+    # specific major, and a major bump is a decision with a migration behind
+    # it, not a routine bump. Dependabot proposes; the owner decides.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
     groups:
       typescript:
         patterns:
