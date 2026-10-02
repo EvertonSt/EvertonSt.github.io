@@ -10,6 +10,39 @@ they can forward without asking.
 
 **Live:** <https://evertonst.github.io/>
 
+[![CI](https://github.com/EvertonSt/EvertonSt.github.io/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/EvertonSt/EvertonSt.github.io/actions/workflows/ci.yml)
+[![Pages](https://github.com/EvertonSt/EvertonSt.github.io/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/EvertonSt/EvertonSt.github.io/actions/workflows/deploy.yml)
+
+## Build status
+
+**The first runs of this repository were red.** Each failure is named below
+with the commit that fixed it — and in one case with the reason no code change
+was needed. Every run since has been green.
+
+The site was rebuilt from scratch and published on 2 October 2026. Three runs
+on `main` were red, all of them in the first three pushes:
+
+| Run                         | What it found                                                                                                                    | Fixed by                                                                     |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `CI` — first push           | All sixty screenshot comparisons failed: the baselines were rendered on Windows, and font rasterisation is not portable          | [`5ecb947`](https://github.com/EvertonSt/EvertonSt.github.io/commit/5ecb947) |
+| `CI` — first and third push | The attribution audit failed on the dependency bot's own commits, because a CI checkout holds every ref, not only `main`         | [`682cd90`](https://github.com/EvertonSt/EvertonSt.github.io/commit/682cd90) |
+| `CI` — first push           | The secret scan died on a range beginning at `1cfd846^`. A root commit has no parent, so this can only happen on an initial push | no code change — it cannot recur                                             |
+| `Deploy` — first push       | Pages was not enabled yet when the push landed                                                                                   | re-run                                                                       |
+
+Two of those are the reason this repository looks the way it does. The visual
+suite now compares pixels only where a baseline for the running platform exists,
+and rests on cross-platform structural assertions instead — which is how the
+four visual defects that shipped through a green pipeline on 2026-10-01 would
+have been caught. The attribution audit now exempts three exact GitHub
+automation identities from the authorship rule, and only from the authorship
+rule: a bot that credited itself for the work would still fail the build.
+
+Each of these is recorded in [`SESSION-LEDGER.md`](SESSION-LEDGER.md) with what
+the checks did **not** prove. The history is left as it happened. Rewriting it
+so the repository appears to have been green from the first commit would trade a
+record that can be verified for one that cannot — and on a portfolio arguing for
+deterministic verdicts, that is the one trade not worth making.
+
 ## What is on the page
 
 | Section             | Why it is there                                                           |
