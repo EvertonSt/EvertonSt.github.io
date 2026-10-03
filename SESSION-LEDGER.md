@@ -10,10 +10,11 @@ Entries are never edited after the fact. A correction is a new entry.
 ## 2026-10-02 — Rebuild of the portfolio site
 
 **What.** Rebuilt the portfolio and résumé site as a fresh repository. The
-previous one was published to a public GitHub account with an AI co-author on
-every commit, which GitHub renders as a second, permanently linked contributor.
-See `docs/decisions/0001-fresh-history-instead-of-a-rewrite.md` for why the
-remedy is a new repository rather than a history rewrite.
+previous one carried a commit-attribution problem that GitHub renders as a
+permanently linked second contributor, which made the header misrepresent who
+wrote the work. See
+`docs/decisions/0001-fresh-history-instead-of-a-rewrite.md` for the specifics
+and for why the remedy was a new repository rather than a history rewrite.
 
 **What changed.**
 
