@@ -109,16 +109,16 @@ for (const scheme of SCHEMES) {
           await page.waitForLoadState("networkidle");
 
           /*
-           * One throwaway capture first. The first full-page capture of a fresh
-           * page settles the layout a fraction differently: each flagship card's
-           * tag-chip row ends one pixel taller once it has happened, and the
-           * whole document grows by those five pixels. The assertion's
-           * stability loop then spends its budget on a page that is still
-           * moving under it and can time out on a loaded machine - measured on
-           * 2026-10-16: failures under a full gate, passes in isolation. The
-           * capture below settles the page into the state the baselines were
-           * recorded in; the assertion, its threshold and the baselines are
-           * unchanged.
+           * One throwaway capture first. On the first full-page capture of a
+           * fresh page, Chromium resolves the mono stack it had been painting
+           * with a fallback for, and the chip text re-measures (measured
+           * 2026-10-16: canvas measureText for that stack goes 46.18px ->
+           * 50.41px for "Next.js", and every chip gets about four pixels
+           * wider). The row heights no longer move - the chips hold a fixed
+           * height - but the glyphs do, and under a loaded machine the
+           * assertion's stability loop can spend its budget on the swap. This
+           * capture settles the fonts first; the assertion, its threshold and
+           * the baselines are unchanged.
            */
           await page.screenshot({ fullPage: true });
 

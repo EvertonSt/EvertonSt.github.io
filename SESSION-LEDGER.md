@@ -365,3 +365,35 @@ four touched files backed up and restored byte for byte:
 **Next.** Commit shape is the owner's call. The card still ships with no
 outbound link; the flip adds the product surface on launch day, together with
 the regenerated résumé.
+
+---
+
+## 2026-10-16 — The tag chips hold their height, and the flake was a font swap
+
+**What.** The full-page visual comparison failed under a full gate and passed
+in isolation. The first diagnosis - a subpixel line box - was wrong, and the
+measurement that replaced it is worth recording: the first full-page capture of
+a fresh page makes Chromium resolve the mono stack it had been painting a
+fallback for. The same `canvas.measureText` call, for the same stack, returns
+46.18px before that capture and 50.41px after; every chip re-measures about four
+pixels wider, and each card's tag row ended one pixel taller. Five cards, five
+pixels of page height, moving under the assertion's stability loop.
+
+**The fix.** The chips no longer let the resolved face decide the row height:
+`.tag` holds a fixed `1.875rem` with a pinned line-height, and `.fp__tags li` is
+a flex container so no descender strut sits under a baseline-aligned chip. The
+document height is now identical on both sides of the capture, which also
+removes a real layout jump a visitor could see on a machine that resolves the
+stack late. The visual spec keeps its one throwaway capture - it settles the
+glyphs for the pixel comparison, which a height cannot do - and its comment now
+states the real cause instead of the wrong one.
+
+**The proof.** Measured on the dev server across a capture (chip 30px and the
+document height unchanged), then the baselines regenerated, the visual suite
+green twice and the full gate green twice.
+
+**What the checks did _not_ prove.** The swap itself is Chromium's, not the
+page's: chip widths still follow whichever face resolves, and a row of chips
+could in principle re-wrap if a face were wide enough - none here does, and the
+page height is identical across the swap. The fixed height is a layout
+guarantee, not a font guarantee.

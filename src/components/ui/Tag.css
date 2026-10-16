@@ -1,7 +1,18 @@
 .tag {
   display: inline-flex;
   align-items: center;
-  padding: 0.15rem var(--space-2);
+  /*
+   * A fixed, integral height on purpose. The mono stack ends in `monospace`,
+   * so which face a reader's machine lands on is not ours to decide, and a face
+   * with different ascent/descent metrics must not change the height of a row
+   * of chips: 2026-10-16, the work section grew five pixels (one per card) the
+   * moment the stack resolved past its fallback, which is a visible layout jump
+   * on any machine that resolves it late. The line-height is pinned for the
+   * same reason; horizontal padding stays a token.
+   */
+  height: 1.875rem;
+  padding: 0 var(--space-2);
+  line-height: 1;
   font-size: var(--text-xs);
   font-family: var(--font-mono);
   color: var(--text-muted);

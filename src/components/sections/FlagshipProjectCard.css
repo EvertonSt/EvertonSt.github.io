@@ -68,6 +68,16 @@
   gap: var(--space-2);
 }
 
+/*
+ * Each item is a flex container, so the chip's own box is the whole line box.
+ * Left as an inline formatting context, the row adds the font's descender space
+ * under the baseline-aligned chip - a fraction of a pixel that depends on the
+ * resolved face, which is exactly the dependence this row must not have.
+ */
+.fp__tags li {
+  display: flex;
+}
+
 .fp__links {
   display: flex;
   flex-wrap: wrap;
