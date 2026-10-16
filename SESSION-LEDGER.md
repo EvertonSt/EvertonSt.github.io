@@ -282,3 +282,84 @@ measured; the first run passed them, so the README now carries the observed
 numbers and the caveat above is closed. A score of 100 on every axis says the
 page is fast, legible and parseable — it does not say the words are any good,
 which is the part a reader decides.
+
+---
+
+## 2026-10-15 — Two pre-launch cards: wrong product copy, private links, dates moved
+
+**What.** The rebuilt repository shipped a SiteCheckIn card describing a
+short-stay accommodation check-in product. That text was never in the old
+history, and it does not describe the product: SiteCheckIn is a hosted
+website-flow monitoring service. The same description reached the structured
+data in `index.html` and the résumé. All three also linked
+`github.com/EvertonSt/sitecheckin` and `github.com/EvertonSt/aitendimento` —
+private repositories — so a public page carried a button that answers 404 for
+every visitor. The dates were stale in the other direction as well: the owner's
+decision of 2026-10-14 moved SiteCheckIn's launch to 11 January 2027 and put
+AItendimento's on hold, while the page still promised October and November 2026.
+
+**What changed.**
+
+- SiteCheckIn's copy — subtitle, description, tags and all four case-study parts,
+  both locales — rewritten from its claim sources: the case-study master draft
+  and the pre-rebuild card, which quoted the 2026-09-22 stress-test verdict.
+- AItendimento loses the production claim ("a production WhatsApp automation
+  platform" for a product that is not in production), gains the approval gate
+  and the exactly-once send path in its own words, and names no date while it is
+  held.
+- Statuses: `launching-october` → `launching-january` ("Launching January 2027",
+  "Public launch 11 January 2027"); `launching-november` → `parked` ("Launch on
+  hold", "Product complete; launch plans on hold").
+- No outbound link on either card: `links: []` plus `linkHoldKey`, and the card
+  renders that note in place of the link row. The reasoning is
+  `docs/decisions/0005`; the law itself moved into
+  `tests/unit/data-integrity.test.ts` rather than being dropped.
+- Both private repository paths are gone from `src/data/links.ts`, the project
+  data, `index.html` and the committed résumé, which was regenerated
+  (`npm run cv && npm run cv:txt`, `verify:cv` green).
+- The experience bullet no longer says the two products shipped in 2026, and the
+  E2E honesty test asserts the new launch state instead of the retired dates.
+
+**The proof.** `npm run gate` green, 211 unit tests. The privacy guard was
+watched failing on the stale committed résumé text — naming the file and the
+path it found — and passing after regeneration. `verify:attribution` caught one
+of the new sentences describing its reports in an attribution-shaped phrase the
+working agreement forbids; the sentence now says plain-English reports. The
+README carries the corrected unit count.
+
+**What the checks did _not_ prove.**
+
+- Most of the rewritten copy is prose. The suite pins the status labels, the
+  dates and the absence of the private links; it cannot pin the truth of every
+  sentence. The claim sources are named in `docs/decisions/0005` so a reader can
+  re-read them, and `golive.sh` demands that re-check before it flips.
+- The privacy guard reads the résumé PDF as bytes, normalised for whitespace and
+  PDF string delimiters; it is not a text extractor.
+- Nothing is pushed. The remote still serves the wrong copy, the old dates and
+  the two repository links until this change is committed and deployed.
+
+**The flip was rehearsed, and it does not work the way the first draft did.**
+`golive.sh v2.1` was run against the real tree in both directions, with the
+four touched files backed up and restored byte for byte:
+
+- the flip applies three exact edits — status to live, the two-line hold
+  replaced by the product link row, and the product entry inserted in
+  `src/data/links.ts` at the marked anchor — one occurrence each, nothing else
+  touched;
+- the first draft wrote CRLF on Windows (the repository is LF-only by law) and
+  left `links: []` in place, which is a duplicate key in TypeScript. The dry
+  run showed both before either could reach a real launch;
+- the flipped state is green: the fast gate first failed on `verify:cv` alone,
+  because the résumé is built from the same data and the flip made it stale.
+  The flip now regenerates both résumé artefacts and commits them with the
+  card; with that step, the flipped state passes all ten gate steps and the
+  whole E2E suite (34 tests, both projects).
+- the honesty assertions now derive from the data instead of pinning the
+  literal dates and the literal live-badge count. Pinned literals would have
+  turned a correct launch into a red gate — the exact failure mode the flip
+  exists to avoid. The literals they were protecting moved into a data law:
+  a launch status names a date, a held status names none.
+
+**Next.** Commit shape is the owner's call. The card still ships with no
+outbound link; the flip adds the product surface on launch day, together with
+the regenerated résumé.

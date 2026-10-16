@@ -10,21 +10,21 @@ import { links } from "./links";
  * line saying what a visitor will actually find behind the link. A portfolio
  * that overstates its own status is worth less to a hiring manager than one
  * that admits what is not finished - and `tests/unit/data-integrity.test.ts`
- * fails the build if a featured project ships without a status, a case study
- * and at least one link.
+ * fails the build if a featured project ships without a status, a case study,
+ * or an outbound link. A project with no link must declare `linkHoldKey`, which
+ * states in words why there is nothing to click (docs/decisions/0005).
  *
  * `metrics` is empty for the two products that have not launched. There is no
  * honest number to put there yet, and a placeholder figure would be the exact
  * kind of claim the status labels exist to avoid.
  */
-export type ProjectStatus =
-  "live" | "demo" | "launching-october" | "launching-november" | "in-development" | "reference";
+export type ProjectStatus = "live" | "demo" | "launching-january" | "parked" | "in-development" | "reference";
 
 export const STATUS_LABEL_KEYS: Record<ProjectStatus, TranslationKey> = {
   live: "status.live",
   demo: "status.demo",
-  "launching-october": "status.launching",
-  "launching-november": "status.planned",
+  "launching-january": "status.launching",
+  parked: "status.parked",
   "in-development": "status.inDevelopment",
   reference: "status.reference",
 };
@@ -32,8 +32,8 @@ export const STATUS_LABEL_KEYS: Record<ProjectStatus, TranslationKey> = {
 export const STATUS_DETAIL_KEYS: Record<ProjectStatus, TranslationKey> = {
   live: "status.liveDetail",
   demo: "status.demoDetail",
-  "launching-october": "status.launchingDetail",
-  "launching-november": "status.plannedDetail",
+  "launching-january": "status.launchingDetail",
+  parked: "status.parkedDetail",
   "in-development": "status.inDevelopmentDetail",
   reference: "status.inDevelopmentDetail",
 };
@@ -68,6 +68,14 @@ export interface Project {
   featured: boolean;
   metrics: Metric[];
   links: ProjectLink[];
+
+  /**
+   * Present only when `links` is deliberately empty: the note the card renders
+   * in place of the link row. A featured project without links and without this
+   * key fails the build - an empty row under the description reads as an
+   * oversight, and this field is the reason it is not one.
+   */
+  linkHoldKey?: TranslationKey;
   caseStudy: CaseStudyPart[];
 }
 
@@ -89,10 +97,11 @@ export const flagshipProjects: Project[] = [
     subtitleKey: "sitecheckin.subtitle",
     descriptionKey: "sitecheckin.description",
     tagsKey: "sitecheckin.tags",
-    status: "launching-october",
+    status: "launching-january",
     featured: true,
     metrics: [],
-    links: [{ labelKey: "work.visitRepo", url: links.sitecheckin, icon: "github" }],
+    links: [],
+    linkHoldKey: "sitecheckin.hold",
     caseStudy: caseStudy(
       "sitecheckin.cs.problem",
       "sitecheckin.cs.architecture",
@@ -106,10 +115,11 @@ export const flagshipProjects: Project[] = [
     subtitleKey: "aitendimento.subtitle",
     descriptionKey: "aitendimento.description",
     tagsKey: "aitendimento.tags",
-    status: "launching-november",
+    status: "parked",
     featured: true,
     metrics: [],
-    links: [{ labelKey: "work.visitRepo", url: links.aitendimento, icon: "github" }],
+    links: [],
+    linkHoldKey: "aitendimento.hold",
     caseStudy: caseStudy(
       "aitendimento.cs.problem",
       "aitendimento.cs.architecture",

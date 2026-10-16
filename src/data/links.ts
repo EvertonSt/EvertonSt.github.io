@@ -10,6 +10,18 @@ export const links = {
   linkedin: "https://www.linkedin.com/in/everton-s-andrade-760407128/",
   site: "https://evertonst.github.io/",
 
+  /*
+   * Product surfaces live here, and only once a product has launched: the
+   * repositories of the two commercial products are private, and a domain that
+   * still answers behind the pre-launch gate is not a link a visitor can use.
+   * The cards state that hold in words instead (docs/decisions/0005).
+   *
+   * A golive.sh flip inserts its product entry on the line below the anchor and
+   * points the card at it, so an unreleased product domain is never published
+   * by this repository ahead of its launch. Prettier keeps the comment.
+   */
+  // GO-LIVE ANCHOR
+
   email: "everton_st@outlook.com",
   emailHref: "mailto:everton_st@outlook.com",
 
@@ -21,8 +33,6 @@ export const links = {
   cerberusCi: "https://github.com/EvertonSt/cerberus-ci",
   cerberusSite: "https://everton-cerberus-site.vercel.app/",
   cerberusNpm: "https://www.npmjs.com/package/cerberus-ci",
-  sitecheckin: "https://github.com/EvertonSt/sitecheckin",
-  aitendimento: "https://github.com/EvertonSt/aitendimento",
   enlace: "https://github.com/EvertonSt/enlace",
   enlaceDemo: "https://enlace-desktop-b9dq.vercel.app/dashboard",
 
@@ -41,8 +51,6 @@ export const links = {
 export const repositoryUrls = {
   argus: links.argus,
   "cerberus-ci": links.cerberusCi,
-  sitecheckin: links.sitecheckin,
-  aitendimento: links.aitendimento,
   enlace: links.enlace,
   "qa-testing-suite": links.qaTestingSuite,
   "local-qa-copilot": links.localQaCopilot,

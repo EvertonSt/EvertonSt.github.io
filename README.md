@@ -45,18 +45,18 @@ deterministic verdicts, that is the one trade not worth making.
 
 ## What is on the page
 
-| Section             | Why it is there                                                           |
-| ------------------- | ------------------------------------------------------------------------- |
-| Hero                | The role being targeted, one claim, and three ways to act                 |
-| Proof strip         | Figures taken from each project's own test suite, with the source named   |
-| Selected work       | Five systems, each with an honest status label and a four-part case study |
-| What I am hired for | The six problems this person gets asked about                             |
-| Supporting work     | Breadth, rendered compactly                                               |
-| Experience          | Employment history with measurable achievements                           |
-| Résumé              | ATS-readable single column, plus PDF and plain-text downloads             |
-| Technical stack     | Tools shipped with, not tools read about                                  |
-| About               | The reasoning behind the approach                                         |
-| Contact             | Email, social profiles, and the roles being sought                        |
+| Section             | Why it is there                                                                                                                    |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Hero                | The role being targeted, one claim, and three ways to act                                                                          |
+| Proof strip         | Figures taken from each project's own test suite, with the source named                                                            |
+| Selected work       | Five systems, each with an honest status label and a four-part case study; a pre-launch product links nothing and says so in words |
+| What I am hired for | The six problems this person gets asked about                                                                                      |
+| Supporting work     | Breadth, rendered compactly                                                                                                        |
+| Experience          | Employment history with measurable achievements                                                                                    |
+| Résumé              | ATS-readable single column, plus PDF and plain-text downloads                                                                      |
+| Technical stack     | Tools shipped with, not tools read about                                                                                           |
+| About               | The reasoning behind the approach                                                                                                  |
+| Contact             | Email, social profiles, and the roles being sought                                                                                 |
 
 Both an English and a Brazilian Portuguese version. The choice is remembered,
 and the URL carries it so a shared link does something predictable.
@@ -128,7 +128,7 @@ yet is still caught.
   translator's error paths, scroll-spy section selection including the
   overlapping-id case, theme and language persistence including blocked storage,
   data integrity, design-token parity across the three themes, and the document
-  head. 209 tests.
+  head. 211 tests.
 - **E2E** (`e2e/`) — the money paths against the production build: navigation,
   language switching and persistence, the mobile menu's keyboard flow, case-study
   disclosures, the contact and résumé links, and honesty assertions.

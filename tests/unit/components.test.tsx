@@ -150,10 +150,10 @@ describe("StatusBadge", () => {
   });
 
   it("adds the explanation when asked for detail", () => {
-    renderWithLanguage(<StatusBadge status="launching-october" showDetail />);
+    renderWithLanguage(<StatusBadge status="launching-january" showDetail />);
 
-    expect(screen.getByText("Launching October 2026")).toBeInTheDocument();
-    expect(screen.getByText(/Public launch 12 October 2026/)).toBeInTheDocument();
+    expect(screen.getByText("Launching January 2027")).toBeInTheDocument();
+    expect(screen.getByText(/Public launch 11 January 2027/)).toBeInTheDocument();
   });
 
   it("marks the dot decorative so the colour is not announced as content", () => {

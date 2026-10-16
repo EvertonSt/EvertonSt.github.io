@@ -25,6 +25,9 @@ interface FlagshipProjectCardProps {
  * note below the links states in words what a visitor will find behind them.
  * A colour alone is not information for someone who cannot distinguish amber
  * from grey, or who is reading on a screen in bright sunlight.
+ *
+ * A card with no links renders the hold note its data declares instead of an
+ * empty row: nothing to click, and the reason for it said out loud.
  */
 export function FlagshipProjectCard({ project }: FlagshipProjectCardProps) {
   const { t, tList } = useLanguage();
@@ -65,14 +68,21 @@ export function FlagshipProjectCard({ project }: FlagshipProjectCardProps) {
         ))}
       </ul>
 
-      <div className="fp__links">
-        {project.links.map((link) => (
-          <Button key={link.url} variant="secondary" size="sm" href={link.url} external>
-            <Icon name={link.icon} size={15} />
-            {t(link.labelKey)}
-          </Button>
-        ))}
-      </div>
+      {project.links.length > 0 ? (
+        <div className="fp__links">
+          {project.links.map((link) => (
+            <Button key={link.url} variant="secondary" size="sm" href={link.url} external>
+              <Icon name={link.icon} size={15} />
+              {t(link.labelKey)}
+            </Button>
+          ))}
+        </div>
+      ) : project.linkHoldKey ? (
+        <p className="fp__links-hold">
+          <Icon name="shield" size={15} />
+          <span>{t(project.linkHoldKey)}</span>
+        </p>
+      ) : null}
 
       <p className="fp__status-note">
         <Icon name="clock" size={14} />

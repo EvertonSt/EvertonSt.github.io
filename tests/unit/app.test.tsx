@@ -3,7 +3,8 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import App from "@/App";
 import { LanguageProvider } from "@/i18n/LanguageProvider";
-import { flagshipProjects } from "@/data/projects";
+import { flagshipProjects, STATUS_DETAIL_KEYS, STATUS_LABEL_KEYS } from "@/data/projects";
+import { en } from "@/i18n/en";
 import { links } from "@/data/links";
 
 /**
@@ -85,7 +86,7 @@ describe("honesty on the page", () => {
     renderApp();
 
     const unlaunched = flagshipProjects.filter(
-      (project) => project.status === "launching-october" || project.status === "launching-november"
+      (project) => project.status === "launching-january" || project.status === "parked"
     );
     expect(unlaunched.length).toBeGreaterThan(0);
 
@@ -100,12 +101,38 @@ describe("honesty on the page", () => {
     expect(liveBadges).toBe(liveCount);
   });
 
-  it("states a launch date for anything not yet released", () => {
+  it("states a launch state for anything not yet released", () => {
     const { container } = renderApp();
     const text = container.textContent ?? "";
 
-    expect(text).toContain("Public launch 12 October 2026");
-    expect(text).toContain("Public launch 2 November 2026");
+    /*
+     * Derived from the data, not from a literal date: the day a product
+     * launches, its status line is supposed to change, and a test that pins the
+     * old sentence turns the flip into a red gate. What must stay true is that
+     * every product still waiting publishes the detail line its status owns -
+     * a date for a launch, the hold for a parked product (data-integrity pins
+     * that a launching status names a date and a held one names none).
+     */
+    const waiting = flagshipProjects.filter(
+      (project) => project.status === "launching-january" || project.status === "parked"
+    );
+    expect(waiting.length, "no flagship project is waiting for launch").toBeGreaterThan(0);
+
+    for (const project of waiting) {
+      expect(text, `${project.id} publishes no launch state`).toContain(
+        en[STATUS_DETAIL_KEYS[project.status]] as string
+      );
+    }
+  });
+
+  it("links no private product repository", () => {
+    renderApp();
+
+    const hrefs = [...document.querySelectorAll("a[href]")].map((node) => node.getAttribute("href") ?? "");
+    for (const href of hrefs) {
+      expect(href).not.toContain("github.com/EvertonSt/sitecheckin");
+      expect(href).not.toContain("github.com/EvertonSt/aitendimento");
+    }
   });
 
   it("does not claim customer counts for demo deployments", () => {
@@ -255,8 +282,12 @@ describe("résumé section", () => {
 
     const resume = document.getElementById("resume") as HTMLElement;
     for (const project of flagshipProjects) {
-      expect(resume.textContent, `resume omits ${project.id}`).toContain(
-        project.titleKey.split(".")[0] === "cerberus" ? "Cerberus CI" : project.id
+      // The title and the status label, not the id: the id only ever appeared
+      // in the card link, and the two pre-launch products have no link to give
+      // one (docs/decisions/0005).
+      expect(resume.textContent, `resume omits ${project.id}`).toContain(en[project.titleKey] as string);
+      expect(resume.textContent, `resume omits the status of ${project.id}`).toContain(
+        en[STATUS_LABEL_KEYS[project.status]] as string
       );
     }
   });

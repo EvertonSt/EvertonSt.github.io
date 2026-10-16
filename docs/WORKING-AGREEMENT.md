@@ -94,6 +94,11 @@ would print one, do not run it.
   the build if one appears in any other stylesheet.
 - Add a translation key to `pt.ts` that is not in `en.ts`, or a prose value
   where English holds a list.
+- Link either commercial product's repository. The two flagship products are
+  private pre-launch work (`docs/decisions/0005`): their cards, the structured
+  data and the generated résumé describe them and link nothing, and
+  `tests/unit/data-integrity.test.ts` fails the build if a repository path
+  reappears anywhere the site ships.
 - Add a dependency without the owner's agreement.
 - Push, force-push, or rewrite history on the remote. Not without an explicit
   instruction.

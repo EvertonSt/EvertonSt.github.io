@@ -82,6 +82,7 @@ export const en = {
   "work.hideCaseStudy": "Hide the case study",
   "work.caseStudyLabel": "Case study for",
   "work.visitRepo": "Repository",
+  "work.visitProduct": "Product",
   "work.liveDemo": "Live demo",
   "work.npmPackage": "npm package",
 
@@ -99,10 +100,10 @@ export const en = {
   "status.liveDetail": "Running with real data",
   "status.demo": "Demo data",
   "status.demoDetail": "Synthetic data, no real customers",
-  "status.launching": "Launching October 2026",
-  "status.launchingDetail": "Public launch 12 October 2026",
-  "status.planned": "Launching November 2026",
-  "status.plannedDetail": "Public launch 2 November 2026",
+  "status.launching": "Launching January 2027",
+  "status.launchingDetail": "Public launch 11 January 2027",
+  "status.parked": "Launch on hold",
+  "status.parkedDetail": "Product complete; launch plans on hold",
   "status.inDevelopment": "In development",
   "status.inDevelopmentDetail": "Built but not yet deployed",
   "status.reference": "Reference project",
@@ -156,32 +157,46 @@ export const en = {
 
   /* SiteCheckIn */
   "sitecheckin.title": "SiteCheckIn",
-  "sitecheckin.subtitle": "Guest check-in and revenue tracking for short-stay accommodation",
+  "sitecheckin.subtitle": "Website-flow monitoring with AI incident reports",
   "sitecheckin.description":
-    "A production SaaS for hosts and small operators: guest self check-in, automated messaging, and a live view of occupancy and revenue per property. Multi-language from the first commit, because the customers are not in one country.",
-  "sitecheckin.tags": ["Next.js", "PostgreSQL", "Multi-tenant", "i18n", "LGPD", "Stripe", "GitHub Actions"],
+    "A hosted SaaS that runs Playwright journeys through the flows a business depends on - login, signup, checkout - on a schedule, captures screenshot, video and console evidence on every run, and turns a failure into a plain-English incident report with a severity. Its public status page is the product monitoring itself: a real flow watching the real landing page.",
+  "sitecheckin.tags": [
+    "Next.js",
+    "TypeScript",
+    "Prisma",
+    "PostgreSQL",
+    "Redis",
+    "BullMQ",
+    "Playwright",
+    "k6",
+    "GitHub Actions",
+    "LGPD",
+  ],
   "sitecheckin.cs.problem":
-    "Small accommodation operators run on a spreadsheet, a messaging app and a lockbox. Check-in instructions get sent by hand, every time, and nobody can say at a glance which properties are actually earning.",
+    "Small businesses find out that a checkout or a signup form broke from their customers. Uptime monitors make it worse: they ping the server, get a 200 and stay green while the Buy button throws a JavaScript error.",
   "sitecheckin.cs.architecture":
-    "Next.js front end, PostgreSQL with tenant isolation on every query, Stripe for billing, and a messaging layer with delivery state tracked per message rather than per request.",
+    "A pnpm monorepo: a Next.js app with auth, projects, flows, runs and plans, the public status page and an SVG badge; a worker executing Playwright journeys off BullMQ with screenshot evidence and plain-English reports; and shared packages for the data model, AI and email.",
   "sitecheckin.cs.decisions":
-    "Tenant isolation is enforced at the data layer rather than filtered in application code, so a missing where-clause fails loudly instead of leaking one customer's rows to another. Compliance work for Brazilian LGPD and international guests is designed in from the start — data export and deletion are product features, not a legal afterthought.",
+    "The product monitors itself in production: the public status page is a real flow watching the real landing page, so the proof surface is the product. Failure evidence is served through a route that answers 404 rather than 403, because a 403 would confirm the evidence exists. Rate limiting is Redis-backed and never fails open, and every deploy path ends in a health gate that exits 1 before a user sees a 502.",
+  "sitecheckin.hold": "Private pre-launch product - no public link before launch.",
   "sitecheckin.cs.evidence":
-    "Public launch on 12 October 2026. Built and tested ahead of launch rather than demonstrated as if it were already serving customers.",
+    "Built and tested ahead of launch rather than demonstrated as if it were already serving customers: the seven-phase stress test and every deploy rehearsal ran green, and the three bugs they found were fixed before a customer could. Public launch planned for 11 January 2027.",
 
   /* AItendimento */
   "aitendimento.title": "AItendimento",
-  "aitendimento.subtitle": "WhatsApp-first customer service automation",
+  "aitendimento.subtitle": "Human-in-the-loop WhatsApp triage",
   "aitendimento.description":
-    "A production WhatsApp automation platform for businesses that answer on their phone: intent detection, handover to a human when it matters, and a conversation log a manager can actually read.",
-  "aitendimento.tags": ["WhatsApp", "Node.js", "Automation", "Human handover", "Audit trail"],
+    "A WhatsApp platform for small businesses that answer on their phone: AI triage that classifies intent and urgency, a draft reply a human approves before anything sends, and a conversation log a manager can actually read.",
+  "aitendimento.tags": ["WhatsApp", "Baileys", "OpenAI", "BullMQ", "Redis", "PostgreSQL", "LGPD"],
   "aitendimento.cs.problem":
     "Customer service for a small business is a WhatsApp thread. Automating it naively is worse than not automating it: a wrong answer sent from the business number costs a customer.",
   "aitendimento.cs.architecture":
-    "WhatsApp as the only channel, by design. Intent detection and scripted replies, with an explicit handover path and an opt-out honoured on every message.",
+    "WhatsApp as the only channel, by design. AI triage and a drafted reply that waits for human approval, with an explicit handover path and an opt-out honoured on every message.",
   "aitendimento.cs.decisions":
-    "The governing decision is that no message ever sends without explicit approval at the point it would go out. Automation that cannot be audited is not deployable in a channel where the business identity is the trust.",
-  "aitendimento.cs.evidence": "Public launch on 2 November 2026.",
+    "The governing decision is that no message ever sends without explicit approval at the point it would go out, and a triage outbox claims, confirms and settles each send, so a crash between the send and the record cannot double-send. Automation that cannot be audited is not deployable in a channel where the business identity is the trust.",
+  "aitendimento.hold": "Private product with the launch on hold - no public link.",
+  "aitendimento.cs.evidence":
+    "Product complete and verified against a live demo stack; the public launch is on hold.",
 
   /* Enlace */
   "enlace.title": "Enlace",
@@ -256,7 +271,7 @@ export const en = {
   "experience.independent3":
     "Built Enlace, an ISP operations platform spanning a Fastify service, React portal, Tauri console and Expo app, deployed on Railway and Vercel.",
   "experience.independent4":
-    "Built SiteCheckIn and AItendimento, two commercial products shipping in 2026, covering multi-tenant SaaS, billing, WhatsApp automation and the compliance work that goes with both.",
+    "Built SiteCheckIn and AItendimento, two commercial products - one in final pre-launch, one complete and on hold - covering scheduled browser monitoring, billing, WhatsApp automation and the compliance work that goes with both.",
   "experience.internTitle": "Software Development Intern",
   "experience.internCompany": "Ages",
   "experience.internPeriod": "June 2019 — June 2020",

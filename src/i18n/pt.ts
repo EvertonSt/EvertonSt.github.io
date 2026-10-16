@@ -82,6 +82,7 @@ const pt: TranslationCatalogue = {
   "work.hideCaseStudy": "Ocultar o case study",
   "work.caseStudyLabel": "Case study de",
   "work.visitRepo": "Repositório",
+  "work.visitProduct": "Produto",
   "work.liveDemo": "Demonstração",
   "work.npmPackage": "Pacote npm",
 
@@ -99,10 +100,10 @@ const pt: TranslationCatalogue = {
   "status.liveDetail": "Rodando com dados reais",
   "status.demo": "Dados de demonstração",
   "status.demoDetail": "Dados sintéticos, sem clientes reais",
-  "status.launching": "Lançamento em outubro de 2026",
-  "status.launchingDetail": "Lançamento público em 12 de outubro de 2026",
-  "status.planned": "Lançamento em novembro de 2026",
-  "status.plannedDetail": "Lançamento público em 2 de novembro de 2026",
+  "status.launching": "Lançamento em janeiro de 2027",
+  "status.launchingDetail": "Lançamento público em 11 de janeiro de 2027",
+  "status.parked": "Lançamento em espera",
+  "status.parkedDetail": "Produto completo; planos de lançamento em espera",
   "status.inDevelopment": "Em desenvolvimento",
   "status.inDevelopmentDetail": "Construído, ainda não publicado",
   "status.reference": "Projeto de referência",
@@ -156,32 +157,46 @@ const pt: TranslationCatalogue = {
 
   /* SiteCheckIn */
   "sitecheckin.title": "SiteCheckIn",
-  "sitecheckin.subtitle": "Check-in de hóspedes e acompanhamento de receita para hospedagem curta",
+  "sitecheckin.subtitle": "Monitoramento de fluxos de site com relatórios de incidente por IA",
   "sitecheckin.description":
-    "Um SaaS em produção para anfitriões e pequenos operadores: auto check-in do hóspede, mensagens automatizadas e uma visão ao vivo da ocupação e da receita por propriedade. Multilíngue desde o primeiro commit, porque os clientes não estão em um único país.",
-  "sitecheckin.tags": ["Next.js", "PostgreSQL", "Multi-tenant", "i18n", "LGPD", "Stripe", "GitHub Actions"],
+    "Um SaaS hospedado que executa jornadas Playwright nos fluxos dos quais um negócio depende - login, cadastro, checkout - em uma agenda, captura evidências de tela, vídeo e console a cada execução e transforma uma falha em um relatório de incidente em linguagem clara, com severidade. Sua página pública de status é o produto monitorando a si mesmo: um fluxo real vigiando a página de destino real.",
+  "sitecheckin.tags": [
+    "Next.js",
+    "TypeScript",
+    "Prisma",
+    "PostgreSQL",
+    "Redis",
+    "BullMQ",
+    "Playwright",
+    "k6",
+    "GitHub Actions",
+    "LGPD",
+  ],
   "sitecheckin.cs.problem":
-    "Pequenos operadores de hospedagem funcionam com planilha, aplicativo de mensagem e caixa de chave. As instruções de check-in são enviadas manualmente, toda vez, e ninguém consegue dizer de relance quais propriedades estão de fato rendendo.",
+    "Pequenos negócios descobrem que um checkout ou um formulário de cadastro quebrou pela boca dos clientes. Monitores de uptime pioram a situação: fazem um ping no servidor, recebem 200 e seguem verdes enquanto o botão de compra lança um erro de JavaScript.",
   "sitecheckin.cs.architecture":
-    "Front-end em Next.js, PostgreSQL com isolamento por tenant em todas as consultas, Stripe para cobrança e uma camada de mensagens com estado de entrega rastreado por mensagem, não por requisição.",
+    "Um monorepo pnpm: um app Next.js com autenticação, projetos, fluxos, execuções e planos, a página pública de status e um selo SVG; um worker que executa jornadas Playwright a partir do BullMQ, com evidências de tela e relatórios escritos por IA; e pacotes compartilhados para o modelo de dados, IA e e-mail.",
   "sitecheckin.cs.decisions":
-    "O isolamento por tenant é aplicado na camada de dados, e não filtrado no código da aplicação, para que uma cláusula where faltando falhe de forma barulhenta em vez de vazar linhas de um cliente para outro. O trabalho de conformidade com a LGPD brasileira e com hóspedes internacionais foi desenhado desde o começo — exportar e apagar dados são funcionalidades, não um afterthought jurídico.",
+    "O produto monitora a si mesmo em produção: a página pública de status é um fluxo de verdade vigiando a página de destino de verdade, então a superfície de prova é o próprio produto. Evidências de falha passam por uma rota que responde 404 em vez de 403, porque um 403 confirmaria que a evidência existe. A limitação de taxa se apoia no Redis e nunca falha aberta, e todo caminho de deploy termina em um portão de saúde que sai com 1 antes de uma pessoa ver um 502.",
+  "sitecheckin.hold": "Produto privado em pré-lançamento - sem link público antes do lançamento.",
   "sitecheckin.cs.evidence":
-    "Lançamento público em 12 de outubro de 2026. Construído e testado antes do lançamento, em vez de ser demonstrado como se já atendesse clientes.",
+    "Construído e testado antes do lançamento, em vez de ser demonstrado como se já atendesse clientes: o teste de estresse de sete fases e todos os ensaios de deploy passaram verdes, e os três bugs que eles encontraram foram corrigidos antes de qualquer cliente. Lançamento público previsto para 11 de janeiro de 2027.",
 
   /* AItendimento */
   "aitendimento.title": "AItendimento",
-  "aitendimento.subtitle": "Automação de atendimento no WhatsApp",
+  "aitendimento.subtitle": "Triagem no WhatsApp com humano no circuito",
   "aitendimento.description":
-    "Uma plataforma de automação de WhatsApp para negócios que atendem pelo telefone: detecção de intenção, passagem para um humano quando importa e um registro de conversas que um gestor consegue ler.",
-  "aitendimento.tags": ["WhatsApp", "Node.js", "Automação", "Passagem para humano", "Trilha de auditoria"],
+    "Uma plataforma de WhatsApp para pequenos negócios que atendem pelo telefone: triagem por IA que classifica intenção e urgência, uma resposta rascunhada que um humano aprova antes de qualquer envio, e um registro de conversas que um gestor consegue ler.",
+  "aitendimento.tags": ["WhatsApp", "Baileys", "OpenAI", "BullMQ", "Redis", "PostgreSQL", "LGPD"],
   "aitendimento.cs.problem":
     "Atendimento de uma pequena empresa é uma conversa de WhatsApp. Automatizar de forma ingênua é pior do que não automatizar: uma resposta errada enviada do número da empresa custa um cliente.",
   "aitendimento.cs.architecture":
-    "WhatsApp como único canal, por decisão de projeto. Detecção de intenção e respostas roteirizadas, com um caminho explícito de passagem para humano e um opt-out honrado em todas as mensagens.",
+    "WhatsApp como único canal, por decisão de projeto. Triagem por IA e uma resposta rascunhada que espera aprovação humana, com um caminho explícito de passagem para humano e um opt-out honrado em todas as mensagens.",
   "aitendimento.cs.decisions":
-    "A decisão que governa tudo: nenhuma mensagem é enviada sem aprovação explícita no momento em que sairia. Automação que não pode ser auditada não é implantável em um canal onde a identidade do negócio é a confiança.",
-  "aitendimento.cs.evidence": "Lançamento público em 2 de novembro de 2026.",
+    "A decisão que governa tudo: nenhuma mensagem é enviada sem aprovação explícita no momento em que sairia, e uma outbox de triagem reivindica, confirma e liquida cada envio, então uma queda entre o envio e o registro não pode duplicar a mensagem. Automação que não pode ser auditada não é implantável em um canal onde a identidade do negócio é a confiança.",
+  "aitendimento.hold": "Produto privado com o lançamento em espera - sem link público.",
+  "aitendimento.cs.evidence":
+    "Produto completo e verificado em uma pilha de demonstração real; o lançamento público está em espera.",
 
   /* Enlace */
   "enlace.title": "Enlace",
@@ -258,7 +273,7 @@ const pt: TranslationCatalogue = {
   "experience.independent3":
     "Construí o Enlace, plataforma de operações para provedor de internet com serviço Fastify, portal React, console Tauri e app Expo, publicada em Railway e Vercel.",
   "experience.independent4":
-    "Construí o SiteCheckIn e o AItendimento, dois produtos comerciais saindo em 2026, cobrindo SaaS multi-tenant, cobrança, automação de WhatsApp e o trabalho de conformidade que acompanha ambos.",
+    "Construí o SiteCheckIn e o AItendimento, dois produtos comerciais - um em pré-lançamento final, outro completo e em espera - cobrindo monitoramento agendado em navegador, cobrança, automação de WhatsApp e a conformidade que acompanha os dois.",
   "experience.internTitle": "Estagiário de Desenvolvimento de Software",
   "experience.internCompany": "Ages",
   "experience.internPeriod": "Junho de 2019 — Junho de 2020",

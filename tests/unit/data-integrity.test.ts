@@ -1,3 +1,5 @@
+import { readFileSync, readdirSync, statSync } from "node:fs";
+import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { en } from "@/i18n/en";
 import pt from "@/i18n/pt";
@@ -45,7 +47,7 @@ describe("project data", () => {
   it("never describes an unlaunched product as being in production", () => {
     // The specific overstatement this guards: "in production" implies customers
     // exist. A project that has not launched must not carry that label.
-    const LAUNCHING: ReadonlyArray<string> = ["launching-october", "launching-november"];
+    const LAUNCHING: ReadonlyArray<string> = ["launching-january", "parked"];
 
     for (const project of flagshipProjects) {
       const claimsProduction = STATUS_LABEL_KEYS[project.status] === "status.live";
@@ -56,9 +58,46 @@ describe("project data", () => {
     }
   });
 
-  it("gives every featured project at least one link and a full four-part case study", () => {
+  it("states a date for a launch status and no date for a held one", () => {
+    /*
+     * The literals the page-level honesty tests used to pin live here, at the level
+     * where a date is a fact rather than a rendering: a status that promises a
+     * launch must name the day, and a status that says the launch is on hold must
+     * not name one - a held product with a date in its detail line would resurrect
+     * the promise the hold exists to withdraw.
+     */
+    const launchDetail = en["status.launchingDetail"] as string;
+    expect(launchDetail, "the launch detail names no date").toMatch(/\d{1,2} \w+ 20\d\d/);
+
+    const parkedDetail = en["status.parkedDetail"] as string;
+    expect(parkedDetail, "a held status must not name a date").not.toMatch(/\d/);
+
+    const launchDetailPt = (pt as unknown as Record<string, string>)["status.launchingDetail"] as string;
+    expect(launchDetailPt, "the pt launch detail names no date").toMatch(/\d{1,2} de \w+ de 20\d\d/);
+
+    const parkedDetailPt = (pt as unknown as Record<string, string>)["status.parkedDetail"] as string;
+    expect(parkedDetailPt, "a held status must not name a date in pt").not.toMatch(/\d/);
+  });
+
+  it("gives every featured project a full case study, and a link or a stated hold", () => {
     for (const project of flagshipProjects) {
-      expect(project.links.length, `${project.id} links`).toBeGreaterThan(0);
+      // Either the card links somewhere, or it says in words why it does not.
+      // Both halves are asserted: a hold note on a card that does link would
+      // render the note and the buttons together, which is a contradiction.
+      if (project.links.length === 0) {
+        const hold = project.linkHoldKey;
+        expect(hold, `${project.id} has no links and no link hold`).toBeDefined();
+        expect(
+          (en as unknown as Record<string, unknown>)[hold as string],
+          `en misses the hold note`
+        ).toBeTruthy();
+        expect(
+          (pt as unknown as Record<string, unknown>)[hold as string],
+          `pt misses the hold note`
+        ).toBeTruthy();
+      } else {
+        expect(project.linkHoldKey, `${project.id} declares a hold and links anyway`).toBeUndefined();
+      }
       expect(project.caseStudy.length, `${project.id} case study length`).toBe(4);
       expect(
         project.caseStudy.map((part) => part.titleKey),
@@ -71,7 +110,7 @@ describe("project data", () => {
     // A placeholder number on a pre-launch product is a false claim. The two
     // products that have not launched carry no metrics, and that must stay true.
     for (const project of flagshipProjects) {
-      if (project.status === "launching-october" || project.status === "launching-november") {
+      if (project.status === "launching-january" || project.status === "parked") {
         expect(project.metrics, `${project.id} must not publish invented metrics`).toEqual([]);
       }
     }
@@ -135,6 +174,50 @@ describe("project data", () => {
       expect(repositoryUrls, `${project.id} has no entry in repositoryUrls`).toHaveProperty(project.id);
       expect(project.url).toBe((repositoryUrls as Record<string, string>)[project.id]);
     }
+  });
+
+  it("never names a private product repository anywhere this repository ships", () => {
+    /*
+     * The two commercial products keep their repositories private
+     * (docs/decisions/0005). The site, the structured data in `index.html` and the
+     * generated resume may describe the products; naming their source would put a
+     * private repository one click from a public page. The resume PDF is written
+     * uncompressed on purpose, so its text is readable here as bytes - the guard
+     * sees the artefact a visitor downloads, not only the data it came from.
+     */
+    const forbidden = ["github.com/evertonst/sitecheckin", "github.com/evertonst/aitendimento"];
+    const root = path.resolve(import.meta.dirname, "../..");
+    const indexHtmlPath = path.join(root, "index.html");
+
+    const walk = (dir: string): string[] =>
+      readdirSync(dir).flatMap((entry) => {
+        const full = path.join(dir, entry);
+        return statSync(full).isDirectory() ? walk(full) : [full];
+      });
+
+    const shipped = [...walk(path.join(root, "src")), indexHtmlPath, ...walk(path.join(root, "public"))];
+    expect(shipped.length, "the walk found nothing to inspect").toBeGreaterThan(20);
+
+    /*
+     * The PDF is written uncompressed (decision 0004), but a URL can still be
+     * emitted as more than one text-showing operator. Stripping whitespace and
+     * the PDF string delimiters folds those back together before the search, so
+     * the check does not depend on how the layout engine happened to wrap a
+     * line.
+     */
+    const normalize = (value: string) => value.toLowerCase().replace(/[\s()\\]/g, "");
+
+    const found: string[] = [];
+    for (const file of shipped) {
+      const text = normalize(readFileSync(file, "latin1"));
+      for (const needle of forbidden) {
+        if (text.includes(normalize(needle))) {
+          found.push(`${path.relative(root, file)} names ${needle}`);
+        }
+      }
+    }
+
+    expect(found).toEqual([]);
   });
 
   it("does not list the same project twice across flagship and supporting", () => {

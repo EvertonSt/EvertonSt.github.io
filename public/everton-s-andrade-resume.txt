@@ -17,7 +17,7 @@ August 2020 — Present · Brazil
   - Designed and shipped Argus, an autonomous QA agent with a 313-test suite that generates Playwright tests, triages failures and files deduplicated issues.
   - Built and published Cerberus CI to npm and the GitHub Marketplace: a CI quality gate with 237 tests and 88% line coverage, running provider-agnostic across four model providers.
   - Built Enlace, an ISP operations platform spanning a Fastify service, React portal, Tauri console and Expo app, deployed on Railway and Vercel.
-  - Built SiteCheckIn and AItendimento, two commercial products shipping in 2026, covering multi-tenant SaaS, billing, WhatsApp automation and the compliance work that goes with both.
+  - Built SiteCheckIn and AItendimento, two commercial products - one in final pre-launch, one complete and on hold - covering scheduled browser monitoring, billing, WhatsApp automation and the compliance work that goes with both.
 
 Software Development Intern — Ages
 June 2019 — June 2020 · Paripiranga, Bahia
@@ -26,13 +26,11 @@ June 2019 — June 2020 · Paripiranga, Bahia
 
 PROJECTS
 
-SiteCheckIn (Launching October 2026)
-  Guest check-in and revenue tracking for short-stay accommodation
-  https://github.com/EvertonSt/sitecheckin
+SiteCheckIn (Launching January 2027)
+  Website-flow monitoring with AI incident reports
 
-AItendimento (Launching November 2026)
-  WhatsApp-first customer service automation
-  https://github.com/EvertonSt/aitendimento
+AItendimento (Launch on hold)
+  Human-in-the-loop WhatsApp triage
 
 Argus (Demo data)
   Autonomous QA agent with a deterministic verdict

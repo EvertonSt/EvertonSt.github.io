@@ -1,4 +1,6 @@
 import { expect, test } from "@playwright/test";
+import { flagshipProjects, STATUS_DETAIL_KEYS } from "../src/data/projects";
+import { en } from "../src/i18n/en";
 
 /**
  * End-to-end: the money paths on the production build.
@@ -221,19 +223,41 @@ test.describe("honesty", () => {
 
     const body = (await page.locator("body").innerText()).toLowerCase();
 
-    // "In production" appears once, on Cerberus CI. The two 2026 launches must
-    // not carry it.
+    // The count is read from the data rather than pinned to a number: a product
+    // that goes live is supposed to raise it, and a test that forbids that would
+    // block the launch flip. What is forbidden is a badge without a live project
+    // behind it, in either direction.
+    const liveProjects = flagshipProjects.filter((project) => project.status === "live").length;
     const productionClaims = await page.locator(".status-badge--live").count();
-    expect(productionClaims).toBe(1);
+    expect(productionClaims).toBe(liveProjects);
 
     expect(body).not.toMatch(/\d+\+?\s+(happy\s+)?customers/);
   });
 
-  test("names the launch date for everything not yet released", async ({ page }) => {
+  test("names the launch state for everything not yet released", async ({ page }) => {
     await page.goto("/");
 
-    await expect(page.getByText("Public launch 12 October 2026")).toBeVisible();
-    await expect(page.getByText("Public launch 2 November 2026")).toBeVisible();
+    const waiting = flagshipProjects.filter(
+      (project) => project.status === "launching-january" || project.status === "parked"
+    );
+    expect(waiting.length, "no flagship project is waiting for launch").toBeGreaterThan(0);
+
+    for (const project of waiting) {
+      await expect(page.getByText(en[STATUS_DETAIL_KEYS[project.status]] as string)).toBeVisible();
+    }
+  });
+
+  test("links no private product repository", async ({ page }) => {
+    await page.goto("/");
+
+    const hrefs = await page
+      .locator("a[href]")
+      .evaluateAll((nodes) => nodes.map((node) => (node as HTMLAnchorElement).href));
+
+    for (const href of hrefs) {
+      expect(href).not.toContain("github.com/EvertonSt/sitecheckin");
+      expect(href).not.toContain("github.com/EvertonSt/aitendimento");
+    }
   });
 
   test("labels demo deployments as synthetic data", async ({ page }) => {
