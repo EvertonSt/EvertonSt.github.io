@@ -29,6 +29,12 @@ build when a featured project has neither links nor a hold, and equally when a
 hold note appears on a card that does link — a card that renders a "nothing to
 click" note next to buttons contradicts itself.
 
+The paths the guards forbid are assembled in one unshipped module,
+`tests/private-repositories.ts`, and imported from there: this repository is
+public, so the address is not reprinted in shipped files or in prose. The page
+names the products; the repositories behind them are not named anywhere a
+reader of the site can reach.
+
 ## Rationale
 
 - A dead button is a false claim. The site's own standard is that the status

@@ -291,10 +291,9 @@ which is the part a reader decides.
 short-stay accommodation check-in product. That text was never in the old
 history, and it does not describe the product: SiteCheckIn is a hosted
 website-flow monitoring service. The same description reached the structured
-data in `index.html` and the résumé. All three also linked
-`github.com/EvertonSt/sitecheckin` and `github.com/EvertonSt/aitendimento` —
-private repositories — so a public page carried a button that answers 404 for
-every visitor. The dates were stale in the other direction as well: the owner's
+data in `index.html` and the résumé. All three also linked each product's
+private repository — a path this ledger deliberately does not reprint — so a
+public page carried a button that answers 404 for every visitor. The dates were stale in the other direction as well: the owner's
 decision of 2026-10-14 moved SiteCheckIn's launch to 11 January 2027 and put
 AItendimento's on hold, while the page still promised October and November 2026.
 
@@ -316,7 +315,10 @@ AItendimento's on hold, while the page still promised October and November 2026.
   `tests/unit/data-integrity.test.ts` rather than being dropped.
 - Both private repository paths are gone from `src/data/links.ts`, the project
   data, `index.html` and the committed résumé, which was regenerated
-  (`npm run cv && npm run cv:txt`, `verify:cv` green).
+  (`npm run cv && npm run cv:txt`, `verify:cv` green). The paths themselves now
+  live in one unshipped module, `tests/private-repositories.ts`, imported by the
+  three guards — a public repository holds the address in one file the site
+  never builds, instead of repeating it across the guards and this ledger.
 - The experience bullet no longer says the two products shipped in 2026, and the
   E2E honesty test asserts the new launch state instead of the retired dates.
 

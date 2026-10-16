@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { flagshipProjects, STATUS_DETAIL_KEYS } from "../src/data/projects";
 import { en } from "../src/i18n/en";
+import { privateRepositoryPaths } from "../tests/private-repositories";
 
 /**
  * End-to-end: the money paths on the production build.
@@ -255,8 +256,9 @@ test.describe("honesty", () => {
       .evaluateAll((nodes) => nodes.map((node) => (node as HTMLAnchorElement).href));
 
     for (const href of hrefs) {
-      expect(href).not.toContain("github.com/EvertonSt/sitecheckin");
-      expect(href).not.toContain("github.com/EvertonSt/aitendimento");
+      for (const repository of privateRepositoryPaths) {
+        expect(href).not.toContain(repository);
+      }
     }
   });
 

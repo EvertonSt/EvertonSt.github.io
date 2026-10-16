@@ -6,6 +6,7 @@ import { LanguageProvider } from "@/i18n/LanguageProvider";
 import { flagshipProjects, STATUS_DETAIL_KEYS, STATUS_LABEL_KEYS } from "@/data/projects";
 import { en } from "@/i18n/en";
 import { links } from "@/data/links";
+import { privateRepositoryPaths } from "../private-repositories";
 
 /**
  * Whole-app invariants.
@@ -130,8 +131,9 @@ describe("honesty on the page", () => {
 
     const hrefs = [...document.querySelectorAll("a[href]")].map((node) => node.getAttribute("href") ?? "");
     for (const href of hrefs) {
-      expect(href).not.toContain("github.com/EvertonSt/sitecheckin");
-      expect(href).not.toContain("github.com/EvertonSt/aitendimento");
+      for (const repository of privateRepositoryPaths) {
+        expect(href).not.toContain(repository);
+      }
     }
   });
 

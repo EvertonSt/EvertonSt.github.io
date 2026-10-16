@@ -1,5 +1,6 @@
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
+import { privateRepositoryPaths } from "../private-repositories";
 import { describe, expect, it } from "vitest";
 import { en } from "@/i18n/en";
 import pt from "@/i18n/pt";
@@ -184,8 +185,10 @@ describe("project data", () => {
      * private repository one click from a public page. The resume PDF is written
      * uncompressed on purpose, so its text is readable here as bytes - the guard
      * sees the artefact a visitor downloads, not only the data it came from.
+     * The paths the guard forbids are assembled in tests/private-repositories.ts,
+     * which is not part of the build, so the address is not repeated here.
      */
-    const forbidden = ["github.com/evertonst/sitecheckin", "github.com/evertonst/aitendimento"];
+    const forbidden = privateRepositoryPaths;
     const root = path.resolve(import.meta.dirname, "../..");
     const indexHtmlPath = path.join(root, "index.html");
 
