@@ -107,6 +107,21 @@ for (const scheme of SCHEMES) {
 
           await page.goto("/");
           await page.waitForLoadState("networkidle");
+
+          /*
+           * One throwaway capture first. The first full-page capture of a fresh
+           * page settles the layout a fraction differently: each flagship card's
+           * tag-chip row ends one pixel taller once it has happened, and the
+           * whole document grows by those five pixels. The assertion's
+           * stability loop then spends its budget on a page that is still
+           * moving under it and can time out on a loaded machine - measured on
+           * 2026-10-16: failures under a full gate, passes in isolation. The
+           * capture below settles the page into the state the baselines were
+           * recorded in; the assertion, its threshold and the baselines are
+           * unchanged.
+           */
+          await page.screenshot({ fullPage: true });
+
           await expect(page).toHaveScreenshot(name, {
             fullPage: true,
             maxDiffPixelRatio: 0.01,
